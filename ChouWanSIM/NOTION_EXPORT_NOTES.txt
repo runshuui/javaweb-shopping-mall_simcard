@@ -1,0 +1,15 @@
+Notion code export
+Source: 项目 / 项目_javaweb_购物网站 / 02ChouWanSIM 项目代码
+Export date: 2026-10-16
+
+This archive contains source code that can be recovered from complete code blocks stored in Notion, arranged using the project's original file structure.
+
+Pages present in Notion but without complete recoverable source code:
+- src/com/chouwansim/dao/ShoppingCartDao.java
+- src/com/chouwansim/entity/CartItem.java
+- src/com/chouwansim/service/ShoppingCartService.java
+- src/com/chouwansim/servlet/CartServlet.java
+- WebRoot/cart.jsp
+
+These files were intentionally not reconstructed from descriptions or older guesses.
+Binary resources such as images and mysql-connector-java-5.1.x.jar are not code and are not included.

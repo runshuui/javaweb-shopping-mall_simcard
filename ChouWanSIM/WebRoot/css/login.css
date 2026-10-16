@@ -1,0 +1,154 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+    background-color: #ffffff;
+    color: #243447;
+}
+
+.login-page {
+    width: 94%;
+    max-width: 1180px;
+    min-height: 620px;
+    margin: 45px auto;
+    display: flex;
+    border: 1px solid #dfe5ea;
+    background-color: #ffffff;
+}
+
+.login-left {
+    box-sizing: border-box;
+    width: 55%;
+    padding: 85px 60px;
+    background-color: #b7d7e8;
+}
+
+.login-brand {
+    margin-bottom: 70px;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.login-left h1 {
+    margin: 0 0 28px 0;
+    font-size: 34px;
+    line-height: 1.5;
+}
+
+.login-tags {
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.login-panel {
+    box-sizing: border-box;
+    width: 45%;
+    padding: 90px 60px 45px 60px;
+}
+
+.login-panel h2 {
+    margin: 0 0 12px 0;
+    font-size: 27px;
+}
+
+.login-tip {
+    margin: 0 0 28px 0;
+    color: #68768a;
+    font-size: 14px;
+}
+
+.form-item {
+    margin-bottom: 18px;
+}
+
+.form-item label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+}
+
+.form-item input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 42px;
+    padding: 8px 10px;
+    border: 1px solid #cbd3da;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.login-button {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #9fc7dc;
+    border-radius: 4px;
+    background-color: #b7d7e8;
+    color: #243447;
+    cursor: pointer;
+}
+
+.login-error {
+    margin-bottom: 18px;
+    padding: 10px 12px;
+    border: 1px solid #e1aaaa;
+    background-color: #fff4f4;
+    color: #a74444;
+    font-size: 13px;
+}
+
+.later-login {
+    margin-top: 26px;
+}
+
+.later-title {
+    margin-bottom: 8px;
+    color: #68768a;
+    font-size: 13px;
+}
+
+.google-button {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #d8d8d8;
+    background-color: #f4f4f4;
+    color: #aaaaaa;
+}
+
+.login-footer {
+    margin-top: 35px;
+    text-align: center;
+    color: #8a96a2;
+    font-size: 13px;
+}
+
+@media screen and (max-width: 800px) {
+
+    .login-page {
+        width: 100%;
+        margin: 0;
+        display: block;
+    }
+
+    .login-left,
+    .login-panel {
+        width: 100%;
+    }
+
+    .login-left {
+        padding: 45px 28px;
+    }
+
+    .login-panel {
+        padding: 45px 28px;
+    }
+
+    .login-brand {
+        margin-bottom: 35px;
+    }
+}
