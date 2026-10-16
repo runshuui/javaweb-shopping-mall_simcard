@@ -2,11 +2,9 @@ package com.chouwansim.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import java.util.List;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.chouwansim.entity.WikiArticle;
 import com.chouwansim.entity.WikiCategory;
-
 import com.chouwansim.service.WikiService;
 
 public class AdminWikiServlet
@@ -80,7 +77,7 @@ public class AdminWikiServlet
         } catch (SQLException e) {
 
             throw new ServletException(
-                "è¯»å– Wiki ç®¡ç†æ•°æ®å¤±è´¥ã€‚",
+                "¶ÁÈ¡ Wiki ¹ÜÀíÊı¾İÊ§°Ü¡£",
                 e
             );
         }
@@ -113,7 +110,7 @@ public class AdminWikiServlet
 
                 setFlash(
                     request.getSession(),
-                    "Wiki åˆ†ç±»å·²ä¿å­˜ã€‚",
+                    "Wiki ·ÖÀàÒÑ±£´æ¡£",
                     "success"
                 );
 
@@ -125,7 +122,7 @@ public class AdminWikiServlet
                         request.getParameter(
                             "categoryId"
                         ),
-                        "åˆ†ç±»ç¼–å·"
+                        "·ÖÀà±àºÅ"
                     );
 
                 wikiService.deleteCategory(
@@ -134,7 +131,7 @@ public class AdminWikiServlet
 
                 setFlash(
                     request.getSession(),
-                    "Wiki åˆ†ç±»å·²åˆ é™¤ã€‚",
+                    "Wiki ·ÖÀàÒÑÉ¾³ı¡£",
                     "success"
                 );
 
@@ -147,7 +144,7 @@ public class AdminWikiServlet
 
                 setFlash(
                     request.getSession(),
-                    "Wiki æ–‡ç« å·²ä¿å­˜ã€‚",
+                    "Wiki ÎÄÕÂÒÑ±£´æ¡£",
                     "success"
                 );
 
@@ -159,7 +156,7 @@ public class AdminWikiServlet
                         request.getParameter(
                             "articleId"
                         ),
-                        "æ–‡ç« ç¼–å·"
+                        "ÎÄÕÂ±àºÅ"
                     );
 
                 wikiService.deleteArticle(
@@ -168,14 +165,14 @@ public class AdminWikiServlet
 
                 setFlash(
                     request.getSession(),
-                    "Wiki æ–‡ç« å·²åˆ é™¤ã€‚",
+                    "Wiki ÎÄÕÂÒÑÉ¾³ı¡£",
                     "success"
                 );
 
             } else {
 
                 throw new IllegalArgumentException(
-                    "æ— æ³•è¯†åˆ«å½“å‰ Wiki ç®¡ç†æ“ä½œã€‚"
+                    "ÎŞ·¨Ê¶±ğµ±Ç° Wiki ¹ÜÀí²Ù×÷¡£"
                 );
             }
 
@@ -190,7 +187,7 @@ public class AdminWikiServlet
         } catch (SQLException e) {
 
             throw new ServletException(
-                "ä¿å­˜ Wiki æ•°æ®å¤±è´¥ã€‚",
+                "±£´æ Wiki Êı¾İÊ§°Ü¡£",
                 e
             );
         }
@@ -230,6 +227,10 @@ public class AdminWikiServlet
             articles
         );
 
+        /*
+         * Wiki ¹ÜÀíÊ×Ò³±ØĞë½øÈë
+         * admin/wiki.jsp¡£
+         */
         request.getRequestDispatcher(
             "/admin/wiki.jsp"
         ).forward(
@@ -250,7 +251,7 @@ public class AdminWikiServlet
                 request.getParameter(
                     "id"
                 ),
-                "åˆ†ç±»ç¼–å·"
+                "·ÖÀà±àºÅ"
             );
 
         WikiCategory category =
@@ -261,7 +262,7 @@ public class AdminWikiServlet
         if (category == null) {
 
             throw new IllegalArgumentException(
-                "Wiki åˆ†ç±»ä¸å­˜åœ¨ã€‚"
+                "Wiki ·ÖÀà²»´æÔÚ¡£"
             );
         }
 
@@ -304,7 +305,7 @@ public class AdminWikiServlet
             int articleId =
                 parseInt(
                     idText,
-                    "æ–‡ç« ç¼–å·"
+                    "ÎÄÕÂ±àºÅ"
                 );
 
             WikiArticle article =
@@ -315,7 +316,7 @@ public class AdminWikiServlet
             if (article == null) {
 
                 throw new IllegalArgumentException(
-                    "Wiki æ–‡ç« ä¸å­˜åœ¨ã€‚"
+                    "Wiki ÎÄÕÂ²»´æÔÚ¡£"
                 );
             }
 
@@ -325,6 +326,10 @@ public class AdminWikiServlet
             );
         }
 
+        /*
+         * Ö»ÓĞÎÄÕÂĞÂÔö / ±à¼­
+         * ²Å½øÈë wiki-form.jsp¡£
+         */
         request.getRequestDispatcher(
             "/admin/wiki-form.jsp"
         ).forward(
@@ -352,7 +357,7 @@ public class AdminWikiServlet
             category.setId(
                 parseInt(
                     idText,
-                    "åˆ†ç±»ç¼–å·"
+                    "·ÖÀà±àºÅ"
                 )
             );
         }
@@ -378,7 +383,7 @@ public class AdminWikiServlet
                 request.getParameter(
                     "displayOrder"
                 ),
-                "æ˜¾ç¤ºé¡ºåº"
+                "ÏÔÊ¾Ë³Ğò"
             )
         );
 
@@ -387,7 +392,7 @@ public class AdminWikiServlet
                 request.getParameter(
                     "status"
                 ),
-                "åˆ†ç±»çŠ¶æ€"
+                "·ÖÀà×´Ì¬"
             )
         );
 
@@ -415,7 +420,7 @@ public class AdminWikiServlet
             article.setId(
                 parseInt(
                     idText,
-                    "æ–‡ç« ç¼–å·"
+                    "ÎÄÕÂ±àºÅ"
                 )
             );
         }
@@ -425,7 +430,7 @@ public class AdminWikiServlet
                 request.getParameter(
                     "categoryId"
                 ),
-                "æ–‡ç« åˆ†ç±»"
+                "ÎÄÕÂ·ÖÀà"
             )
         );
 
@@ -446,8 +451,9 @@ public class AdminWikiServlet
         );
 
         /*
-         * Markdown æ­£æ–‡ä¸èƒ½ä½¿ç”¨ trim(request...)
-         * ä¹‹å‰å…ˆå®Œæ•´è¯»å–ï¼Œä¿ç•™å†…éƒ¨æ¢è¡Œã€‚
+         * Markdown ÕıÎÄ²»ÄÜÊ¹ÓÃ
+         * trim(request...)¡£
+         * ±£ÁôÕıÎÄÄÚ²¿»»ĞĞ¡£
          */
         String content =
             request.getParameter(
@@ -455,7 +461,6 @@ public class AdminWikiServlet
             );
 
         if (content == null) {
-
             content = "";
         }
 
@@ -487,7 +492,7 @@ public class AdminWikiServlet
 
             throw new IllegalArgumentException(
                 fieldName
-                + "ä¸èƒ½ä¸ºç©ºã€‚"
+                + "²»ÄÜÎª¿Õ¡£"
             );
         }
 
@@ -501,7 +506,7 @@ public class AdminWikiServlet
 
             throw new IllegalArgumentException(
                 fieldName
-                + "æ ¼å¼ä¸æ­£ç¡®ã€‚"
+                + "¸ñÊ½²»ÕıÈ·¡£"
             );
         }
     }

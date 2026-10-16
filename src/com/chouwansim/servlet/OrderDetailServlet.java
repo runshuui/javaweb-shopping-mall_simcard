@@ -31,14 +31,17 @@ public class OrderDetailServlet
             );
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
         try {
+
             long orderId =
                 Long.parseLong(
                     request.getParameter(
@@ -47,16 +50,19 @@ public class OrderDetailServlet
                 );
 
             Order order =
-                orderService.findUserOrderDetail(
+                orderService
+                .findUserOrderDetail(
                     orderId,
                     userId.longValue()
                 );
 
             if (order == null) {
+
                 response.sendError(
                     HttpServletResponse
                     .SC_NOT_FOUND
                 );
+
                 return;
             }
 
@@ -65,23 +71,31 @@ public class OrderDetailServlet
                 order
             );
 
-            request.getRequestDispatcher(
-                "/order-detail.jsp"
-            ).forward(
-                request,
-                response
-            );
+            request
+                .getRequestDispatcher(
+                    "/order-detail.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
-        } catch (NumberFormatException e) {
+        } catch (
+            NumberFormatException e) {
+
             response.sendError(
                 HttpServletResponse
                 .SC_BAD_REQUEST
             );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     private Long getLoginUserId(
         HttpSession session) {
@@ -104,10 +118,14 @@ public class OrderDetailServlet
         }
 
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }

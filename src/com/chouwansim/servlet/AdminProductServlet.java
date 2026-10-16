@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +23,7 @@ public class AdminProductServlet
     private ProductService productService =
         new ProductService();
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -37,8 +37,10 @@ public class AdminProductServlet
         if (action == null
             || action.length() == 0) {
 
-            action = "list";
+            action =
+                "list";
         }
+
 
         if ("list".equals(action)) {
 
@@ -63,6 +65,7 @@ public class AdminProductServlet
         }
     }
 
+
     protected void doPost(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -76,6 +79,7 @@ public class AdminProductServlet
             request.getParameter(
                 "action"
             );
+
 
         if ("add".equals(action)) {
 
@@ -114,6 +118,7 @@ public class AdminProductServlet
         }
     }
 
+
     private void listProducts(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -143,11 +148,12 @@ public class AdminProductServlet
             e.printStackTrace();
 
             throw new ServletException(
-                "è¯»å–å•†å“åˆ—è¡¨å¤±è´¥ã€‚",
+                "¶ÁÈ¡ÉÌÆ·ÁÐ±íÊ§°Ü¡£",
                 e
             );
         }
     }
+
 
     private void showEditForm(
         HttpServletRequest request,
@@ -168,15 +174,17 @@ public class AdminProductServlet
                     id
                 );
 
+
             if (product == null) {
 
                 response.sendError(
                     HttpServletResponse.SC_NOT_FOUND,
-                    "å•†å“ä¸å­˜åœ¨ã€‚"
+                    "ÉÌÆ·²»´æÔÚ¡£"
                 );
 
                 return;
             }
+
 
             request.setAttribute(
                 "editProduct",
@@ -195,20 +203,24 @@ public class AdminProductServlet
         } catch (Exception e) {
 
             throw new ServletException(
-                "è¯»å–å•†å“èµ„æ–™å¤±è´¥ã€‚",
+                "¶ÁÈ¡ÉÌÆ·×ÊÁÏÊ§°Ü¡£",
                 e
             );
         }
     }
+
 
     private void addProduct(
         HttpServletRequest request,
         HttpServletResponse response)
         throws ServletException, IOException {
 
+        Product product =
+            null;
+
         try {
 
-            Product product =
+            product =
                 buildProduct(
                     request
                 );
@@ -228,9 +240,24 @@ public class AdminProductServlet
 
             request.setAttribute(
                 "saveError",
-                "å•†å“ä¿å­˜å¤±è´¥ï¼š"
+                "ÉÌÆ·±£´æÊ§°Ü£º"
                 + e.getMessage()
             );
+
+            /*
+             * ±£ÁôÓÃ»§¸Õ¸ÕÊäÈëµÄÊý¾Ý¡£
+             *
+             * ÐÂÔöÊ§°ÜÊ±²»¸øËüÉèÖÃÉÌÆ· ID£¬
+             * product-form.jsp »á¸ù¾Ý action ²ÎÊý
+             * ÅÐ¶ÏÕâÊÇÐÂÔö»¹ÊÇ±à¼­¡£
+             */
+            if (product != null) {
+
+                request.setAttribute(
+                    "formProduct",
+                    product
+                );
+            }
 
             request
                 .getRequestDispatcher(
@@ -243,12 +270,14 @@ public class AdminProductServlet
         }
     }
 
+
     private void updateProduct(
         HttpServletRequest request,
         HttpServletResponse response)
         throws ServletException, IOException {
 
-        Product product = null;
+        Product product =
+            null;
 
         try {
 
@@ -283,7 +312,7 @@ public class AdminProductServlet
 
             request.setAttribute(
                 "saveError",
-                "å•†å“ä¿®æ”¹å¤±è´¥ï¼š"
+                "ÉÌÆ·ÐÞ¸ÄÊ§°Ü£º"
                 + e.getMessage()
             );
 
@@ -306,6 +335,7 @@ public class AdminProductServlet
         }
     }
 
+
     private void toggleStatus(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -327,6 +357,7 @@ public class AdminProductServlet
 
             String newStatus;
 
+
             if ("PUBLISHED".equals(
                     currentStatus)) {
 
@@ -338,6 +369,7 @@ public class AdminProductServlet
                 newStatus =
                     "PUBLISHED";
             }
+
 
             productService.updateStatus(
                 id,
@@ -352,11 +384,12 @@ public class AdminProductServlet
         } catch (Exception e) {
 
             throw new ServletException(
-                "ä¿®æ”¹å•†å“ä¸Šä¸‹æž¶çŠ¶æ€å¤±è´¥ã€‚",
+                "ÐÞ¸ÄÉÌÆ·ÉÏÏÂ¼Ü×´Ì¬Ê§°Ü¡£",
                 e
             );
         }
     }
+
 
     private void deleteProduct(
         HttpServletRequest request,
@@ -386,19 +419,21 @@ public class AdminProductServlet
             e.printStackTrace();
 
             throw new ServletException(
-                "åˆ é™¤å•†å“å¤±è´¥ã€‚"
-                + "å¦‚æžœå•†å“å·²ç»å­˜åœ¨è®¢å•ã€è´­ç‰©è½¦ã€è¯„ä»·æˆ–æŒå¡è®°å½•ï¼Œ"
-                + "è¯·æ”¹ç”¨ä¸‹æž¶è€Œä¸æ˜¯åˆ é™¤ã€‚",
+                "É¾³ýÉÌÆ·Ê§°Ü¡£"
+                + "Èç¹ûÉÌÆ·ÒÑ¾­´æÔÚ¶©µ¥¡¢¹ºÎï³µ¡¢ÆÀ¼Û»ò³Ö¿¨¼ÇÂ¼£¬"
+                + "Çë¸ÄÓÃÏÂ¼Ü¶ø²»ÊÇÉ¾³ý¡£",
                 e
             );
         }
     }
+
 
     private Product buildProduct(
         HttpServletRequest request) {
 
         Product product =
             new Product();
+
 
         String name =
             trim(
@@ -461,28 +496,33 @@ public class AdminProductServlet
                 )
             );
 
+
         if (name == null
             || name.length() == 0) {
 
             throw new IllegalArgumentException(
-                "å•†å“åç§°ä¸èƒ½ä¸ºç©ºã€‚"
+                "ÉÌÆ·Ãû³Æ²»ÄÜÎª¿Õ¡£"
             );
         }
+
 
         if (!"SIM_ESIM".equals(type)
             && !"EUICC".equals(type)) {
 
             throw new IllegalArgumentException(
-                "å•†å“ç±»åž‹ä¸æ­£ç¡®ã€‚"
+                "ÉÌÆ·ÀàÐÍ²»ÕýÈ·¡£"
             );
         }
+
 
         if (!"DRAFT".equals(status)
             && !"PUBLISHED".equals(status)
             && !"ARCHIVED".equals(status)) {
 
-            status = "DRAFT";
+            status =
+                "DRAFT";
         }
+
 
         product.setName(
             name
@@ -504,6 +544,7 @@ public class AdminProductServlet
             coverImage
         );
 
+
         if ("1".equals(
                 purchasableText)) {
 
@@ -518,6 +559,7 @@ public class AdminProductServlet
             );
         }
 
+
         if (priceText != null
             && priceText.length() > 0) {
 
@@ -530,7 +572,7 @@ public class AdminProductServlet
                     BigDecimal.ZERO) < 0) {
 
                 throw new IllegalArgumentException(
-                    "ä»·æ ¼ä¸èƒ½å°äºŽ 0ã€‚"
+                    "¼Û¸ñ²»ÄÜÐ¡ÓÚ 0¡£"
                 );
             }
 
@@ -538,6 +580,7 @@ public class AdminProductServlet
                 price
             );
         }
+
 
         if (stockText != null
             && stockText.length() > 0) {
@@ -550,14 +593,17 @@ public class AdminProductServlet
             if (stock < 0) {
 
                 throw new IllegalArgumentException(
-                    "åº“å­˜ä¸èƒ½å°äºŽ 0ã€‚"
+                    "¿â´æ²»ÄÜÐ¡ÓÚ 0¡£"
                 );
             }
 
             product.setStock(
-                new Integer(stock)
+                new Integer(
+                    stock
+                )
             );
         }
+
 
         product.setStatus(
             status
@@ -571,10 +617,16 @@ public class AdminProductServlet
             0
         );
 
-        if ("SIM_ESIM".equals(type)) {
+
+        /*
+         * SIM / eSIM ×¨Êô×ÊÁÏ¡£
+         */
+        if ("SIM_ESIM".equals(
+                type)) {
 
             SimProduct sim =
                 new SimProduct();
+
 
             String simForm =
                 trim(
@@ -582,6 +634,7 @@ public class AdminProductServlet
                         "simForm"
                     )
                 );
+
 
             if (!"PHYSICAL_SIM".equals(
                     simForm)
@@ -591,13 +644,15 @@ public class AdminProductServlet
                     simForm)) {
 
                 throw new IllegalArgumentException(
-                    "SIM å½¢æ€ä¸æ­£ç¡®ã€‚"
+                    "SIM ÐÎÌ¬²»ÕýÈ·¡£"
                 );
             }
+
 
             sim.setForm(
                 simForm
             );
+
 
             sim.setOperator(
                 trim(
@@ -607,6 +662,7 @@ public class AdminProductServlet
                 )
             );
 
+
             sim.setCountryRegion(
                 trim(
                     request.getParameter(
@@ -614,6 +670,7 @@ public class AdminProductServlet
                     )
                 )
             );
+
 
             if ("1".equals(
                     request.getParameter(
@@ -631,25 +688,52 @@ public class AdminProductServlet
                 );
             }
 
+
+            /*
+             * ¹Ù·½ÉêÇëµØÖ·¡£
+             */
             sim.setOfficialUrl(
-                null
+                trim(
+                    request.getParameter(
+                        "officialUrl"
+                    )
+                )
             );
 
+
+            /*
+             * Markdown Ô­ÎÄ¡£
+             *
+             * ²»×ö HTML ×ª»»£¬
+             * Ö±½Ó´æÈë MEDIUMTEXT¡£
+             */
             sim.setApplicationGuide(
-                null
+                textBlock(
+                    request.getParameter(
+                        "applicationGuide"
+                    )
+                )
             );
+
 
             sim.setKeepaliveGuide(
-                null
+                textBlock(
+                    request.getParameter(
+                        "keepaliveGuide"
+                    )
+                )
             );
+
 
             product.setSimProduct(
                 sim
             );
         }
 
+
         return product;
     }
+
 
     private void redirectList(
         HttpServletRequest request,
@@ -662,12 +746,42 @@ public class AdminProductServlet
         );
     }
 
+
     private String trim(
         String value) {
 
         if (value == null) {
             return null;
         }
+
+        return value.trim();
+    }
+
+
+    /*
+     * Markdown ÎÄ±¾Ê¹ÓÃ¡£
+     *
+     * ±£ÁôÕýÎÄÄÚ²¿µÄ»»ÐÐºÍËõ½ø£¬
+     * Ö»È¥³ýÕû¸öÎÄ±¾×îÇ°ºÍ×îºóµÄ¿Õ°×¡£
+     */
+    private String textBlock(
+        String value) {
+
+        if (value == null) {
+            return null;
+        }
+
+        value =
+            value.replace(
+                "\r\n",
+                "\n"
+            );
+
+        value =
+            value.replace(
+                "\r",
+                "\n"
+            );
 
         return value.trim();
     }

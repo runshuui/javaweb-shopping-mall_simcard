@@ -32,14 +32,17 @@ public class UserAddressServlet
             );
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
         try {
+
             List<UserAddress> addresses =
                 addressService.findByUserId(
                     userId.longValue()
@@ -56,12 +59,17 @@ public class UserAddressServlet
                 );
 
             if (editId != null
-                && editId.trim().length() > 0) {
+                && editId.trim()
+                         .length() > 0) {
 
                 try {
+
                     UserAddress editAddress =
-                        addressService.findByIdAndUser(
-                            Long.parseLong(editId),
+                        addressService
+                        .findByIdAndUser(
+                            Long.parseLong(
+                                editId
+                            ),
                             userId.longValue()
                         );
 
@@ -70,20 +78,27 @@ public class UserAddressServlet
                         editAddress
                     );
 
-                } catch (NumberFormatException e) {
-                    // ÂøΩÁï•ÈùûÊ≥ï editId
+                } catch (
+                    NumberFormatException e) {
+
+                    // ∫ˆ¬‘∑«∑® editId°£
                 }
             }
 
-            request.getRequestDispatcher(
-                "/user-address.jsp"
-            ).forward(
-                request,
-                response
-            );
+            request
+                .getRequestDispatcher(
+                    "/user-address.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
 
@@ -103,10 +118,12 @@ public class UserAddressServlet
             getLoginUserId(session);
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
@@ -116,6 +133,7 @@ public class UserAddressServlet
             );
 
         try {
+
             if ("delete".equals(action)) {
 
                 long addressId =
@@ -132,10 +150,11 @@ public class UserAddressServlet
 
                 session.setAttribute(
                     "addressFlash",
-                    "Êî∂Ë¥ßÂú∞ÂùÄÂ∑≤Âà†Èô§„ÄÇ"
+                    " ’ªıµÿ÷∑“—…æ≥˝°£"
                 );
 
             } else {
+
                 UserAddress address =
                     new UserAddress();
 
@@ -145,7 +164,8 @@ public class UserAddressServlet
                     );
 
                 if (addressId != null
-                    && addressId.trim().length() > 0) {
+                    && addressId.trim()
+                                .length() > 0) {
 
                     address.setId(
                         Long.parseLong(
@@ -157,6 +177,7 @@ public class UserAddressServlet
                 address.setUserId(
                     userId.longValue()
                 );
+
                 address.setReceiverName(
                     trim(
                         request.getParameter(
@@ -164,6 +185,7 @@ public class UserAddressServlet
                         )
                     )
                 );
+
                 address.setPhone(
                     trim(
                         request.getParameter(
@@ -171,6 +193,7 @@ public class UserAddressServlet
                         )
                     )
                 );
+
                 address.setPostalCode(
                     trim(
                         request.getParameter(
@@ -178,6 +201,7 @@ public class UserAddressServlet
                         )
                     )
                 );
+
                 address.setAddress1(
                     trim(
                         request.getParameter(
@@ -185,6 +209,7 @@ public class UserAddressServlet
                         )
                     )
                 );
+
                 address.setAddress2(
                     trim(
                         request.getParameter(
@@ -192,6 +217,7 @@ public class UserAddressServlet
                         )
                     )
                 );
+
                 address.setAddress3(
                     trim(
                         request.getParameter(
@@ -206,18 +232,23 @@ public class UserAddressServlet
 
                 session.setAttribute(
                     "addressFlash",
-                    "Êî∂Ë¥ßÂú∞ÂùÄÂ∑≤‰øùÂ≠ò„ÄÇ"
+                    " ’ªıµÿ÷∑“—±£¥Ê°£"
                 );
             }
 
-        } catch (IllegalArgumentException e) {
+        } catch (
+            IllegalArgumentException e) {
+
             session.setAttribute(
                 "addressFlash",
                 e.getMessage()
             );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
 
         response.sendRedirect(
@@ -257,10 +288,14 @@ public class UserAddressServlet
         }
 
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }

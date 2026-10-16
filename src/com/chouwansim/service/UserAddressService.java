@@ -58,8 +58,9 @@ public class UserAddressService {
                 );
 
             if (existing == null) {
+
                 throw new IllegalArgumentException(
-                    "æ”¶è´§åœ°å€ä¸å­˜åœ¨ã€‚"
+                    "ÊÕ»õµØÖ·²»´æÔÚ¡£"
                 );
             }
 
@@ -91,7 +92,7 @@ public class UserAddressService {
                 address.getReceiverName())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥æ”¶ä»¶äººå§“åã€‚"
+                "ÇëÊäÈëÊÕ¼şÈËĞÕÃû¡£"
             );
         }
 
@@ -99,7 +100,7 @@ public class UserAddressService {
                 address.getPhone())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥æ‰‹æœºå·ã€‚"
+                "ÇëÊäÈëÊÖ»úºÅ¡£"
             );
         }
 
@@ -107,7 +108,7 @@ public class UserAddressService {
                 address.getAddress1())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥åœ°å€1ã€‚"
+                "ÇëÊäÈëµØÖ·1¡£"
             );
         }
 
@@ -115,7 +116,7 @@ public class UserAddressService {
                    .length() > 100) {
 
             throw new IllegalArgumentException(
-                "æ”¶ä»¶äººå§“åè¿‡é•¿ã€‚"
+                "ÊÕ¼şÈËĞÕÃû¹ı³¤¡£"
             );
         }
 
@@ -123,7 +124,7 @@ public class UserAddressService {
                    .length() > 50) {
 
             throw new IllegalArgumentException(
-                "æ‰‹æœºå·è¿‡é•¿ã€‚"
+                "ÊÖ»úºÅ¹ı³¤¡£"
             );
         }
     }

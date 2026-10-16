@@ -17,7 +17,9 @@ public class AdminFilter implements Filter {
 
     public void init(FilterConfig filterConfig)
         throws ServletException {
+
     }
+
 
     public void doFilter(
         ServletRequest request,
@@ -31,11 +33,17 @@ public class AdminFilter implements Filter {
         HttpServletResponse httpResponse =
             (HttpServletResponse) response;
 
+
         HttpSession session =
             httpRequest.getSession(false);
 
+
+        /*
+         * Ã»µÇÂ¼
+         */
         if (session == null
-            || session.getAttribute("loginUserId") == null) {
+            || session.getAttribute(
+                "loginUserId") == null) {
 
             httpResponse.sendRedirect(
                 httpRequest.getContextPath()
@@ -45,27 +53,40 @@ public class AdminFilter implements Filter {
             return;
         }
 
+
+        /*
+         * ÒÑµÇÂ¼£¬µ«²»ÊÇ¹ÜÀíÔ±
+         */
         String role =
             (String) session.getAttribute(
                 "loginUserRole"
             );
 
+
         if (!"ADMIN".equals(role)) {
 
             httpResponse.sendError(
                 HttpServletResponse.SC_FORBIDDEN,
-                "æ²¡æœ‰ç®¡ç†å‘˜æƒé™ã€‚"
+                "Ã»ÓĞ¹ÜÀíÔ±È¨ÏŞ¡£"
             );
 
             return;
         }
 
+
+        /*
+         * ¹ÜÀíÔ±Õı³£·ÃÎÊ
+         */
         chain.doFilter(
             request,
             response
         );
+
     }
 
+
     public void destroy() {
+
     }
+
 }

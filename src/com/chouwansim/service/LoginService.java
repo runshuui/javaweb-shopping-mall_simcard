@@ -8,39 +8,57 @@ import com.chouwansim.util.PasswordUtil;
 
 public class LoginService {
 
+
     private UserAccountDao userAccountDao =
         new UserAccountDao();
+
 
     public UserAccount login(
         String email,
         String password)
         throws SQLException {
 
+
         UserAccount user =
-            userAccountDao.findByEmail(
-                email
-            );
+            userAccountDao.findByEmail(email);
+
 
         if (user == null) {
+
             return null;
+
         }
+
+
+        /*
+         * 0 = ÒÑ½ûÓÃ
+         */
 
         if (user.getStatus() != 1) {
+
             return null;
+
         }
 
-        boolean ok =
+
+        boolean correct =
             PasswordUtil.verifyPassword(
                 password,
+                user.getPasswordHash(),
                 user.getPasswordSalt(),
-                user.getPasswordIterations(),
-                user.getPasswordHash()
+                user.getPasswordIterations()
             );
 
-        if (!ok) {
+
+        if (!correct) {
+
             return null;
+
         }
 
+
         return user;
+
     }
+
 }

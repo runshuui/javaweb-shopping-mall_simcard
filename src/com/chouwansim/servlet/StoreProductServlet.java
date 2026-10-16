@@ -2,6 +2,7 @@ package com.chouwansim.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -60,6 +61,9 @@ public class StoreProductServlet
                     )
                 );
 
+            /*
+             * µ±Ç°É¸Ñ¡ºóµÄÉÌÆ·¡£
+             */
             List<Product> products =
                 productService.findPublished(
                     type,
@@ -68,9 +72,77 @@ public class StoreProductServlet
                     realname
                 );
 
+            /*
+             * ¹ú¼Ò/µØÇøÏÂÀ­¿ò²»ÄÜÖ±½ÓÊ¹ÓÃ
+             * products¡£
+             *
+             * ÒòÎª products ÒÑ¾­¾­¹ıÉ¸Ñ¡¡£
+             * ÀıÈçÓÃ»§Ñ¡Ôñ¡°ÖĞ¹ú¡±ÒÔºó£¬
+             * products ÖĞ¿ÉÄÜÖ»Ê£ÖĞ¹ú£¬
+             * ÄÇÃ´¹ú¼ÒÏÂÀ­¿òÒ²»áÖ»Ê£ÖĞ¹ú¡£
+             *
+             * ËùÒÔÕâÀïÖØĞÂÈ¡µÃµ±Ç°ÀàĞÍÏÂ
+             * ËùÓĞÒÑÉÏ¼ÜÉÌÆ·£¬
+             * ×¨ÃÅÓÃÓÚÉú³É¹ú¼Ò/µØÇøÑ¡Ïî¡£
+             */
+            List<String> availableCountries =
+                new ArrayList<String>();
+
+            if ("SIM_ESIM".equals(type)) {
+
+                List<Product> allProducts =
+                    productService.findPublished(
+                        type,
+                        null,
+                        null,
+                        null
+                    );
+
+                for (int i = 0;
+                     i < allProducts.size();
+                     i++) {
+
+                    Product product =
+                        allProducts.get(i);
+
+                    if (product.getSimProduct()
+                        == null) {
+
+                        continue;
+                    }
+
+                    String countryRegion =
+                        trim(
+                            product
+                            .getSimProduct()
+                            .getCountryRegion()
+                        );
+
+                    if (countryRegion == null
+                        || countryRegion.length()
+                           == 0) {
+
+                        continue;
+                    }
+
+                    if (!availableCountries
+                        .contains(countryRegion)) {
+
+                        availableCountries.add(
+                            countryRegion
+                        );
+                    }
+                }
+            }
+
             request.setAttribute(
                 "products",
                 products
+            );
+
+            request.setAttribute(
+                "availableCountries",
+                availableCountries
             );
 
             request.setAttribute(
@@ -97,13 +169,19 @@ public class StoreProductServlet
 
                 request.getRequestDispatcher(
                     "/euicc.jsp"
-                ).forward(request, response);
+                ).forward(
+                    request,
+                    response
+                );
 
             } else {
 
                 request.getRequestDispatcher(
                     "/index.jsp"
-                ).forward(request, response);
+                ).forward(
+                    request,
+                    response
+                );
             }
 
         } catch (SQLException e) {
@@ -111,7 +189,7 @@ public class StoreProductServlet
             e.printStackTrace();
 
             throw new ServletException(
-                "è¯»å–å•†åŸå•†å“å¤±è´¥ã€‚",
+                "¶ÁÈ¡ÉÌ³ÇÉÌÆ·Ê§°Ü¡£",
                 e
             );
         }

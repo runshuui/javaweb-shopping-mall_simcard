@@ -23,6 +23,7 @@ public class UserReviewServlet
     private SimReviewService reviewService =
         new SimReviewService();
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -32,29 +33,41 @@ public class UserReviewServlet
             request.getSession(false);
 
         Long userId =
-            getLoginUserId(session);
+            getLoginUserId(
+                session
+            );
+
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
+
 
         String action =
             request.getParameter(
                 "action"
             );
 
+
         try {
-            if ("form".equals(action)) {
+
+            if ("form".equals(
+                    action)) {
+
                 showForm(
                     request,
                     response,
                     userId.longValue()
                 );
+
             } else {
+
                 showList(
                     request,
                     response,
@@ -62,7 +75,9 @@ public class UserReviewServlet
                 );
             }
 
-        } catch (IllegalArgumentException e) {
+        } catch (
+            IllegalArgumentException e) {
+
             session.setAttribute(
                 "reviewFlash",
                 e.getMessage()
@@ -74,9 +89,13 @@ public class UserReviewServlet
             );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     protected void doPost(
         HttpServletRequest request,
@@ -87,21 +106,29 @@ public class UserReviewServlet
             "UTF-8"
         );
 
+
         HttpSession session =
             request.getSession(false);
 
         Long userId =
-            getLoginUserId(session);
+            getLoginUserId(
+                session
+            );
+
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
+
         try {
+
             long productId =
                 Long.parseLong(
                     request.getParameter(
@@ -109,64 +136,104 @@ public class UserReviewServlet
                     )
                 );
 
+
             SimReview review =
                 new SimReview();
+
 
             review.setProductId(
                 productId
             );
+
             review.setUserId(
                 userId.longValue()
             );
+
+
             review.setApplicationScore(
                 parseScore(
                     request,
                     "applicationScore"
                 )
             );
+
+
             review.setValueScore(
                 parseScore(
                     request,
                     "valueScore"
                 )
             );
+
+
             review.setNetworkScore(
                 parseScore(
                     request,
                     "networkScore"
                 )
             );
+
+
             review.setRoamingScore(
                 parseScore(
                     request,
                     "roamingScore"
                 )
             );
+
+
             review.setTransferScore(
                 parseScore(
                     request,
                     "transferScore"
                 )
             );
+
+
             review.setRenewalScore(
                 parseScore(
                     request,
                     "renewalScore"
                 )
             );
+
+
             review.setContent(
                 request.getParameter(
                     "content"
                 )
             );
 
+
+            /*
+             * Service ◊‘∂Ø≈–∂œ£∫
+             *
+             * µ⁄“ª¥Œ = INSERT
+             * “—∆¿º€ = UPDATE
+             */
             reviewService.saveReview(
                 review
             );
 
+
             session.setAttribute(
                 "reviewFlash",
-                "ËØÑ‰ª∑Â∑≤‰øùÂ≠ò„ÄÇ"
+                "∆¿º€“—±£¥Ê°£"
+            );
+
+
+            response.sendRedirect(
+                request.getContextPath()
+                + "/reviews"
+            );
+
+
+        } catch (
+            NumberFormatException e) {
+
+            session.setAttribute(
+                "reviewFlash",
+                "∆¿º€≤Œ ˝≤ª’˝»∑°£"
             );
 
             response.sendRedirect(
@@ -174,18 +241,10 @@ public class UserReviewServlet
                 + "/reviews"
             );
 
-        } catch (NumberFormatException e) {
-            session.setAttribute(
-                "reviewFlash",
-                "ËØÑ‰ª∑ÂèÇÊï∞‰∏çÊ≠£Á°Æ„ÄÇ"
-            );
 
-            response.sendRedirect(
-                request.getContextPath()
-                + "/reviews"
-            );
+        } catch (
+            IllegalArgumentException e) {
 
-        } catch (IllegalArgumentException e) {
             session.setAttribute(
                 "reviewFlash",
                 e.getMessage()
@@ -196,10 +255,15 @@ public class UserReviewServlet
                 + "/reviews"
             );
 
+
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     private void showList(
         HttpServletRequest request,
@@ -210,9 +274,11 @@ public class UserReviewServlet
                IOException {
 
         List<SimReview> reviews =
-            reviewService.findUserReviews(
+            reviewService
+            .findUserReviews(
                 userId
             );
+
 
         List<Product> products =
             reviewService
@@ -220,14 +286,17 @@ public class UserReviewServlet
                 userId
             );
 
+
         request.setAttribute(
             "reviews",
             reviews
         );
+
         request.setAttribute(
             "reviewableProducts",
             products
         );
+
 
         request.getRequestDispatcher(
             "/reviews.jsp"
@@ -236,6 +305,7 @@ public class UserReviewServlet
             response
         );
     }
+
 
     private void showForm(
         HttpServletRequest request,
@@ -248,37 +318,48 @@ public class UserReviewServlet
         long productId;
 
         try {
+
             productId =
                 Long.parseLong(
                     request.getParameter(
                         "productId"
                     )
                 );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             throw new IllegalArgumentException(
-                "ÂïÜÂìÅÂèÇÊï∞‰∏çÊ≠£Á°Æ„ÄÇ"
+                "…Ã∆∑≤Œ ˝≤ª’˝»∑°£"
             );
         }
 
+
         Product product =
-            reviewService.findReviewProduct(
+            reviewService
+            .findReviewProduct(
                 productId
             );
 
+
         SimReview review =
-            reviewService.findUserReview(
+            reviewService
+            .findUserReview(
                 productId,
                 userId
             );
+
 
         request.setAttribute(
             "product",
             product
         );
+
         request.setAttribute(
             "review",
             review
         );
+
 
         request.getRequestDispatcher(
             "/review-form.jsp"
@@ -287,6 +368,7 @@ public class UserReviewServlet
             response
         );
     }
+
 
     private int parseScore(
         HttpServletRequest request,
@@ -298,23 +380,30 @@ public class UserReviewServlet
             );
 
         if (value == null
-            || value.trim().length() == 0) {
+            || value.trim()
+                    .length() == 0) {
 
             throw new IllegalArgumentException(
-                "ËØ∑ÂÆåÊàêÂÖ®ÈÉ®ÂÖ≠È°πËØÑÂàÜ„ÄÇ"
+                "«ÎÕÍ≥…»´≤ø¡˘œÓ∆¿∑÷°£"
             );
         }
 
+
         try {
+
             return Integer.parseInt(
                 value.trim()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             throw new IllegalArgumentException(
-                "ËØÑÂàÜÊ†ºÂºè‰∏çÊ≠£Á°Æ„ÄÇ"
+                "∆¿∑÷∏Ò Ω≤ª’˝»∑°£"
             );
         }
     }
+
 
     private Long getLoginUserId(
         HttpSession session) {
@@ -323,24 +412,33 @@ public class UserReviewServlet
             return null;
         }
 
+
         Object value =
             session.getAttribute(
                 "loginUserId"
             );
 
+
         if (value instanceof Long) {
+
             return (Long) value;
         }
+
 
         if (value == null) {
             return null;
         }
 
+
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }

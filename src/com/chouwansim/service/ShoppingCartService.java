@@ -33,7 +33,7 @@ public class ShoppingCartService {
         if (quantity <= 0) {
 
             throw new IllegalArgumentException(
-                "è´­ä¹°æ•°é‡å¿…é¡»å¤§äºŽ 0ã€‚"
+                "¹ºÂòÊýÁ¿±ØÐë´óÓÚ 0¡£"
             );
         }
 
@@ -130,7 +130,7 @@ public class ShoppingCartService {
         if (product == null) {
 
             throw new IllegalArgumentException(
-                "å•†å“ä¸å­˜åœ¨ã€‚"
+                "ÉÌÆ·²»´æÔÚ¡£"
             );
         }
 
@@ -138,21 +138,21 @@ public class ShoppingCartService {
                 product.getStatus())) {
 
             throw new IllegalArgumentException(
-                "è¯¥å•†å“å½“å‰æœªä¸Šæž¶ã€‚"
+                "¸ÃÉÌÆ·µ±Ç°Î´ÉÏ¼Ü¡£"
             );
         }
 
         if (product.getPurchasable() != 1) {
 
             throw new IllegalArgumentException(
-                "è¯¥å•†å“ä¸æ”¯æŒæœ¬ç«™è´­ä¹°ã€‚"
+                "¸ÃÉÌÆ·²»Ö§³Ö±¾Õ¾¹ºÂò¡£"
             );
         }
 
         if (product.getPrice() == null) {
 
             throw new IllegalArgumentException(
-                "è¯¥å•†å“æš‚æ— æœ¬ç«™å”®ä»·ã€‚"
+                "¸ÃÉÌÆ·ÔÝÎÞ±¾Õ¾ÊÛ¼Û¡£"
             );
         }
 
@@ -161,7 +161,7 @@ public class ShoppingCartService {
                .intValue() <= 0) {
 
             throw new IllegalArgumentException(
-                "è¯¥å•†å“å½“å‰æ— åº“å­˜ã€‚"
+                "¸ÃÉÌÆ·µ±Ç°ÎÞ¿â´æ¡£"
             );
         }
 
@@ -176,7 +176,7 @@ public class ShoppingCartService {
             product.getStock().intValue()) {
 
             throw new IllegalArgumentException(
-                "è´­ä¹°æ•°é‡è¶…è¿‡å½“å‰åº“å­˜ã€‚"
+                "¹ºÂòÊýÁ¿³¬¹ýµ±Ç°¿â´æ¡£"
             );
         }
     }

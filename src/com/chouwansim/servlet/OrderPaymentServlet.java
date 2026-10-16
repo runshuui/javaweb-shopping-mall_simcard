@@ -33,17 +33,22 @@ public class OrderPaymentServlet
             request.getSession(false);
 
         Long userId =
-            getLoginUserId(session);
+            getLoginUserId(
+                session
+            );
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
         try {
+
             long addressId =
                 Long.parseLong(
                     request.getParameter(
@@ -57,16 +62,23 @@ public class OrderPaymentServlet
                 );
 
             OrderResult result =
-                orderService.createPaidOrder(
+                orderService
+                .createPaidOrder(
                     userId.longValue(),
                     addressId,
                     paymentMethod
                 );
 
+
+            /*
+             * ÷ß∏∂≥…π¶“≥‘› ±¥” Session
+             * ∂¡»°±æ¥Œ∂©µ•Ω·π˚°£
+             */
             session.setAttribute(
                 "lastPaidOrderNumber",
                 result.getOrderNumber()
             );
+
             session.setAttribute(
                 "lastPaidOrderTotal",
                 result.getTotalAmount()
@@ -77,10 +89,12 @@ public class OrderPaymentServlet
                 + "/payment-success.jsp"
             );
 
-        } catch (NumberFormatException e) {
+        } catch (
+            NumberFormatException e) {
+
             session.setAttribute(
                 "checkoutError",
-                "Êî∂Ë¥ßÂú∞ÂùÄÂèÇÊï∞ÈîôËØØ„ÄÇ"
+                " ’ªıµÿ÷∑≤Œ ˝¥ÌŒÛ°£"
             );
 
             response.sendRedirect(
@@ -88,7 +102,9 @@ public class OrderPaymentServlet
                 + "/checkout"
             );
 
-        } catch (IllegalArgumentException e) {
+        } catch (
+            IllegalArgumentException e) {
+
             session.setAttribute(
                 "checkoutError",
                 e.getMessage()
@@ -100,9 +116,13 @@ public class OrderPaymentServlet
             );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     private Long getLoginUserId(
         HttpSession session) {
@@ -125,10 +145,14 @@ public class OrderPaymentServlet
         }
 
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }

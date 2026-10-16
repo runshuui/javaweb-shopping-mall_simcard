@@ -38,24 +38,29 @@ public class CheckoutServlet
             );
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
         try {
+
             List<CartItem> cartItems =
                 cartService.findByUserId(
                     userId.longValue()
                 );
 
             if (cartItems.size() == 0) {
+
                 response.sendRedirect(
                     request.getContextPath()
                     + "/cart"
                 );
+
                 return;
             }
 
@@ -82,24 +87,31 @@ public class CheckoutServlet
                 "cartItems",
                 cartItems
             );
+
             request.setAttribute(
                 "addresses",
                 addresses
             );
+
             request.setAttribute(
                 "checkoutTotal",
                 total
             );
 
-            request.getRequestDispatcher(
-                "/checkout.jsp"
-            ).forward(
-                request,
-                response
-            );
+            request
+                .getRequestDispatcher(
+                    "/checkout.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
 
@@ -124,10 +136,14 @@ public class CheckoutServlet
         }
 
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }
