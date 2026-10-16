@@ -16,6 +16,10 @@ public class SimReviewService {
     private ProductService productService =
         new ProductService();
 
+
+    /*
+     * µ±«∞”√ªß“—æ≠∑¢±Ìµƒ∆¿º€°£
+     */
     public List<SimReview> findUserReviews(
         long userId)
         throws SQLException {
@@ -25,6 +29,11 @@ public class SimReviewService {
         );
     }
 
+
+    /*
+     * µ±«∞”√ªßªπ√ª”–∆¿º€π˝µƒ
+     * SIM / eSIM …Ã∆∑°£
+     */
     public List<Product> findReviewableProducts(
         long userId)
         throws SQLException {
@@ -35,6 +44,11 @@ public class SimReviewService {
             );
     }
 
+
+    /*
+     * ≤È—Øµ±«∞”√ªß∂‘ƒ≥∏ˆ…Ã∆∑
+     *  «∑Ò“—æ≠∑¢±Ì∆¿º€°£
+     */
     public SimReview findUserReview(
         long productId,
         long userId)
@@ -47,6 +61,11 @@ public class SimReviewService {
             );
     }
 
+
+    /*
+     * ¥Úø™∆¿º€“≥√Ê ±£¨
+     * ≤È—Ø…Ã∆∑≤¢ºÏ≤È «∑Ò‘ –Ì∆¿º€°£
+     */
     public Product findReviewProduct(
         long productId)
         throws SQLException {
@@ -56,52 +75,75 @@ public class SimReviewService {
                 productId
             );
 
-        validateProduct(product);
+        validateProduct(
+            product
+        );
 
         return product;
     }
 
+
+    /*
+     * ±£¥Ê∆¿º€°£
+     *
+     * µ⁄“ª¥Œ∆¿º€£∫
+     * INSERT
+     *
+     * “—æ≠∆¿º€π˝£∫
+     * UPDATE
+     */
     public void saveReview(
         SimReview review)
         throws SQLException {
 
         if (review == null) {
+
             throw new IllegalArgumentException(
-                "ËØÑ‰ª∑Êï∞ÊçÆ‰∏çËÉΩ‰∏∫Á©∫„ÄÇ"
+                "∆¿º€ ˝æ›≤ªƒ‹Œ™ø’°£"
             );
         }
+
 
         Product product =
             productService.findById(
                 review.getProductId()
             );
 
-        validateProduct(product);
+        validateProduct(
+            product
+        );
+
 
         validateScore(
             review.getApplicationScore(),
-            "Áî≥ËØ∑‰æøÂà©Â∫¶"
+            "…Í«Î±„¿˚∂»"
         );
+
         validateScore(
             review.getValueScore(),
-            "‰ª∑Ê†ºÊÄß‰ª∑ÊØî"
+            "º€∏Ò–‘º€±»"
         );
+
         validateScore(
             review.getNetworkScore(),
-            "ÁΩëÁªú‰ΩìÈ™å"
+            "Õ¯¬ÁÃÂ—È"
         );
+
         validateScore(
             review.getRoamingScore(),
-            "Êº´Ê∏∏‰ΩìÈ™å"
+            "¬˛”ŒÃÂ—È"
         );
+
         validateScore(
             review.getTransferScore(),
-            "ËÆæÂ§áËøÅÁßª‰æøÂà©Â∫¶"
+            "…Ë±∏«®“∆±„¿˚∂»"
         );
+
         validateScore(
             review.getRenewalScore(),
-            "ÂÖÖÂÄºÁª≠Ë¥π‰æøÂà©Â∫¶"
+            "≥‰÷µ–¯∑—±„¿˚∂»"
         );
+
 
         String content =
             review.getContent();
@@ -110,15 +152,22 @@ public class SimReviewService {
             content = "";
         }
 
-        content = content.trim();
+        content =
+            content.trim();
+
 
         if (content.length() > 2000) {
+
             throw new IllegalArgumentException(
-                "ÊñáÂ≠óËØÑ‰ª∑‰∏çËÉΩË∂ÖËøá 2000 ‰∏™Â≠óÁ¨¶„ÄÇ"
+                "Œƒ◊÷∆¿º€≤ªƒ‹≥¨π˝ 2000 ∏ˆ◊÷∑˚°£"
             );
         }
 
-        review.setContent(content);
+
+        review.setContent(
+            content
+        );
+
 
         SimReview existing =
             reviewDao.findByProductAndUser(
@@ -126,13 +175,26 @@ public class SimReviewService {
                 review.getUserId()
             );
 
+
         if (existing == null) {
-            reviewDao.insert(review);
+
+            reviewDao.insert(
+                review
+            );
+
         } else {
-            reviewDao.update(review);
+
+            reviewDao.update(
+                review
+            );
         }
     }
 
+
+    /*
+     * …Ã∆∑œÍ«È“≥£∫
+     * ≤È—Ø∏√…Ã∆∑»´≤ø∆¿º€°£
+     */
     public List<SimReview> findProductReviews(
         long productId)
         throws SQLException {
@@ -142,6 +204,11 @@ public class SimReviewService {
         );
     }
 
+
+    /*
+     * …Ã∆∑œÍ«È“≥£∫
+     * ≤È—Ø∆¿º€»À ˝“‘º∞¡˘Œ¨∆Ωæ˘∑÷°£
+     */
     public ReviewSummary findSummary(
         long productId)
         throws SQLException {
@@ -151,53 +218,77 @@ public class SimReviewService {
         );
     }
 
+
+    /*
+     * π‹¿Ì‘±∫ÛÃ®£∫
+     * ≤È—Ø»´≤ø∆¿º€°£
+     */
     public List<SimReview> findAllReviews()
         throws SQLException {
 
         return reviewDao.findAll();
     }
 
+
+    /*
+     * π‹¿Ì‘±∫ÛÃ®£∫
+     * …æ≥˝∆¿º€°£
+     */
     public void deleteReview(
         long reviewId)
         throws SQLException {
 
         if (reviewId <= 0) {
+
             throw new IllegalArgumentException(
-                "ËØÑ‰ª∑ÁºñÂè∑‰∏çÊ≠£Á°Æ„ÄÇ"
+                "∆¿º€±‡∫≈≤ª’˝»∑°£"
             );
         }
+
 
         reviewDao.deleteById(
             reviewId
         );
     }
 
+
+    /*
+     * ºÏ≤È∏√…Ã∆∑ «∑Ò  ”√”⁄
+     * SIM / eSIM ¡˘Œ¨∆¿º€°£
+     */
     private void validateProduct(
         Product product) {
 
         if (product == null) {
+
             throw new IllegalArgumentException(
-                "ÂïÜÂìÅ‰∏çÂ≠òÂú®„ÄÇ"
+                "…Ã∆∑≤ª¥Ê‘⁄°£"
             );
         }
+
 
         if (!"SIM_ESIM".equals(
                 product.getType())) {
 
             throw new IllegalArgumentException(
-                "ËØ•ÂïÜÂìÅ‰∏ç‰ΩøÁî® SIM/eSIM ÂÖ≠Áª¥ËØÑ‰ª∑„ÄÇ"
+                "∏√…Ã∆∑≤ª π”√ SIM/eSIM ¡˘Œ¨∆¿º€°£"
             );
         }
+
 
         if (!"PUBLISHED".equals(
                 product.getStatus())) {
 
             throw new IllegalArgumentException(
-                "ÂΩìÂâçÂïÜÂìÅ‰∏çÂèØËØÑ‰ª∑„ÄÇ"
+                "µ±«∞…Ã∆∑≤ªø…∆¿º€°£"
             );
         }
     }
 
+
+    /*
+     * ¡˘œÓ∆¿∑÷±ÿ–Î»´≤øŒ™ 1~5°£
+     */
     private void validateScore(
         int score,
         String name) {
@@ -207,7 +298,7 @@ public class SimReviewService {
 
             throw new IllegalArgumentException(
                 name
-                + "ËØÑÂàÜÂøÖÈ°ª‰∏∫ 1 Âà∞ 5 ÂàÜ„ÄÇ"
+                + "∆¿∑÷±ÿ–ÎŒ™ 1 µΩ 5 ∑÷°£"
             );
         }
     }

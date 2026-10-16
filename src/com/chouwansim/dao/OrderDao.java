@@ -28,6 +28,7 @@ public class OrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "c.cart_pduct_id, "
@@ -43,44 +44,75 @@ public class OrderDao {
                 + "WHERE c.cart_useracc_id = ? "
                 + "FOR UPDATE";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                CartItem item = new CartItem();
 
-                item.setUserId(userId);
+                CartItem item =
+                    new CartItem();
+
+                item.setUserId(
+                    userId
+                );
+
                 item.setProductId(
-                    rs.getLong("cart_pduct_id")
+                    rs.getLong(
+                        "cart_pduct_id"
+                    )
                 );
+
                 item.setQuantity(
-                    rs.getInt("cart_quantity")
+                    rs.getInt(
+                        "cart_quantity"
+                    )
                 );
+
                 item.setProductName(
-                    rs.getString("pduct_name")
+                    rs.getString(
+                        "pduct_name"
+                    )
                 );
+
                 item.setUnitPrice(
-                    rs.getBigDecimal("pduct_price")
+                    rs.getBigDecimal(
+                        "pduct_price"
+                    )
                 );
 
                 int stock =
-                    rs.getInt("pduct_stock");
+                    rs.getInt(
+                        "pduct_stock"
+                    );
 
                 if (rs.wasNull()) {
+
                     item.setStock(null);
+
                 } else {
+
                     item.setStock(
                         new Integer(stock)
                     );
                 }
 
                 item.setProductStatus(
-                    rs.getString("pduct_status")
+                    rs.getString(
+                        "pduct_status"
+                    )
                 );
 
                 item.setPurchasable(
-                    rs.getInt("pduct_purchasable")
+                    rs.getInt(
+                        "pduct_purchasable"
+                    )
                 );
 
                 items.add(item);
@@ -89,6 +121,7 @@ public class OrderDao {
             return items;
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -98,6 +131,7 @@ public class OrderDao {
             }
         }
     }
+
 
     public UserAddress findAddress(
         Connection conn,
@@ -109,6 +143,7 @@ public class OrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "useraddr_id, "
@@ -122,9 +157,18 @@ public class OrderDao {
                 + "WHERE useraddr_id = ? "
                 + "AND useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, addressId);
-            pstmt.setLong(2, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                addressId
+            );
+
+            pstmt.setLong(
+                2,
+                userId
+            );
 
             rs = pstmt.executeQuery();
 
@@ -136,34 +180,51 @@ public class OrderDao {
                 new UserAddress();
 
             address.setId(
-                rs.getLong("useraddr_id")
+                rs.getLong(
+                    "useraddr_id"
+                )
             );
+
             address.setUserId(
-                rs.getLong("useracc_id")
+                rs.getLong(
+                    "useracc_id"
+                )
             );
+
             address.setSlot(
-                rs.getInt("useraddr_slot")
+                rs.getInt(
+                    "useraddr_slot"
+                )
             );
+
             address.setReceiverName(
                 rs.getString(
                     "useraddr_receiver_name"
                 )
             );
+
             address.setPhone(
-                rs.getString("useraddr_phone")
+                rs.getString(
+                    "useraddr_phone"
+                )
             );
+
             address.setPostalCode(
                 rs.getString(
                     "useraddr_postal_code"
                 )
             );
+
             address.setFullAddress(
-                rs.getString("useraddr_address")
+                rs.getString(
+                    "useraddr_address"
+                )
             );
 
             return address;
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -173,6 +234,7 @@ public class OrderDao {
             }
         }
     }
+
 
     public long insertOrder(
         Connection conn,
@@ -185,6 +247,7 @@ public class OrderDao {
         ResultSet keys = null;
 
         try {
+
             String sql =
                 "INSERT INTO orders ("
                 + "order_number, "
@@ -201,23 +264,36 @@ public class OrderDao {
                     Statement.RETURN_GENERATED_KEYS
                 );
 
-            pstmt.setString(1, orderNumber);
-            pstmt.setLong(2, userId);
-            pstmt.setBigDecimal(3, total);
+            pstmt.setString(
+                1,
+                orderNumber
+            );
+
+            pstmt.setLong(
+                2,
+                userId
+            );
+
+            pstmt.setBigDecimal(
+                3,
+                total
+            );
 
             pstmt.executeUpdate();
 
-            keys = pstmt.getGeneratedKeys();
+            keys =
+                pstmt.getGeneratedKeys();
 
             if (keys.next()) {
                 return keys.getLong(1);
             }
 
             throw new SQLException(
-                "æ— æ³•å–å¾—è®¢å• IDã€‚"
+                "ÎŞ·¨È¡µÃ¶©µ¥ ID¡£"
             );
 
         } finally {
+
             if (keys != null) {
                 keys.close();
             }
@@ -228,6 +304,7 @@ public class OrderDao {
         }
     }
 
+
     public void insertOrderItem(
         Connection conn,
         long orderId,
@@ -237,6 +314,7 @@ public class OrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "INSERT INTO order_item ("
                 + "order_id, "
@@ -247,23 +325,49 @@ public class OrderDao {
                 + "orderitem_subtotal"
                 + ") VALUES (?, ?, ?, ?, ?, ?)";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setLong(1, orderId);
-            pstmt.setLong(2, item.getProductId());
-            pstmt.setString(3, item.getProductName());
-            pstmt.setBigDecimal(4, item.getUnitPrice());
-            pstmt.setInt(5, item.getQuantity());
-            pstmt.setBigDecimal(6, item.getSubtotal());
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            pstmt.setLong(
+                2,
+                item.getProductId()
+            );
+
+            pstmt.setString(
+                3,
+                item.getProductName()
+            );
+
+            pstmt.setBigDecimal(
+                4,
+                item.getUnitPrice()
+            );
+
+            pstmt.setInt(
+                5,
+                item.getQuantity()
+            );
+
+            pstmt.setBigDecimal(
+                6,
+                item.getSubtotal()
+            );
 
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
+
 
     public void insertOrderAddress(
         Connection conn,
@@ -274,6 +378,7 @@ public class OrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "INSERT INTO order_address ("
                 + "orderaddr_order_id, "
@@ -283,21 +388,29 @@ public class OrderDao {
                 + "orderaddr_address"
                 + ") VALUES (?, ?, ?, ?, ?)";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setLong(1, orderId);
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
             pstmt.setString(
                 2,
                 address.getReceiverName()
             );
+
             pstmt.setString(
                 3,
                 address.getPhone()
             );
+
             pstmt.setString(
                 4,
                 address.getPostalCode()
             );
+
             pstmt.setString(
                 5,
                 address.getFullAddress()
@@ -306,11 +419,13 @@ public class OrderDao {
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
+
 
     public void insertPayment(
         Connection conn,
@@ -323,6 +438,7 @@ public class OrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "INSERT INTO payment_record ("
                 + "order_id, "
@@ -334,21 +450,39 @@ public class OrderDao {
                 + "payment_paid_at"
                 + ") VALUES (?, ?, 'PAID', ?, ?, NOW(), NOW())";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setLong(1, orderId);
-            pstmt.setString(2, paymentMethod);
-            pstmt.setBigDecimal(3, amount);
-            pstmt.setString(4, tradeNo);
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            pstmt.setString(
+                2,
+                paymentMethod
+            );
+
+            pstmt.setBigDecimal(
+                3,
+                amount
+            );
+
+            pstmt.setString(
+                4,
+                tradeNo
+            );
 
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
+
 
     public void decreaseStock(
         Connection conn,
@@ -359,6 +493,7 @@ public class OrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "UPDATE product "
                 + "SET pduct_stock = "
@@ -367,27 +502,42 @@ public class OrderDao {
                 + "WHERE pduct_id = ? "
                 + "AND pduct_stock >= ?";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setInt(1, quantity);
-            pstmt.setLong(2, productId);
-            pstmt.setInt(3, quantity);
+            pstmt.setInt(
+                1,
+                quantity
+            );
+
+            pstmt.setLong(
+                2,
+                productId
+            );
+
+            pstmt.setInt(
+                3,
+                quantity
+            );
 
             int affected =
                 pstmt.executeUpdate();
 
             if (affected != 1) {
+
                 throw new SQLException(
-                    "å•†å“åº“å­˜å‘ç”Ÿå˜åŒ–ï¼Œè¯·é‡æ–°ç»“ç®—ã€‚"
+                    "ÉÌÆ·¿â´æ·¢Éú±ä»¯£¬ÇëÖØĞÂ½áËã¡£"
                 );
             }
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
+
 
     public void clearCart(
         Connection conn,
@@ -397,15 +547,23 @@ public class OrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "DELETE FROM shopping_cart "
                 + "WHERE cart_useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }

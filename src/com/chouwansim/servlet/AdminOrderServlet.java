@@ -22,6 +22,7 @@ public class AdminOrderServlet
     private AdminOrderService orderService =
         new AdminOrderService();
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -33,12 +34,17 @@ public class AdminOrderServlet
             );
 
         try {
-            if ("detail".equals(action)) {
+
+            if ("detail".equals(
+                    action)) {
+
                 showDetail(
                     request,
                     response
                 );
+
             } else {
+
                 showList(
                     request,
                     response
@@ -46,9 +52,13 @@ public class AdminOrderServlet
             }
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     protected void doPost(
         HttpServletRequest request,
@@ -68,7 +78,9 @@ public class AdminOrderServlet
             );
 
         try {
-            if ("ship".equals(action)) {
+
+            if ("ship".equals(
+                    action)) {
 
                 long orderId =
                     Long.parseLong(
@@ -95,7 +107,7 @@ public class AdminOrderServlet
 
                 session.setAttribute(
                     "adminOrderFlash",
-                    "ËÆ¢ÂçïÂ∑≤ÂèëË¥ß„ÄÇ"
+                    "∂©µ•“—∑¢ªı°£"
                 );
 
                 response.sendRedirect(
@@ -114,10 +126,12 @@ public class AdminOrderServlet
                 + "/admin/orders"
             );
 
-        } catch (NumberFormatException e) {
+        } catch (
+            NumberFormatException e) {
+
             session.setAttribute(
                 "adminOrderFlash",
-                "ËÆ¢ÂçïÂèÇÊï∞ÈîôËØØ„ÄÇ"
+                "∂©µ•≤Œ ˝¥ÌŒÛ°£"
             );
 
             response.sendRedirect(
@@ -125,7 +139,9 @@ public class AdminOrderServlet
                 + "/admin/orders"
             );
 
-        } catch (IllegalArgumentException e) {
+        } catch (
+            IllegalArgumentException e) {
+
             session.setAttribute(
                 "adminOrderFlash",
                 e.getMessage()
@@ -145,9 +161,13 @@ public class AdminOrderServlet
             );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     private void showList(
         HttpServletRequest request,
@@ -172,6 +192,7 @@ public class AdminOrderServlet
         );
     }
 
+
     private void showDetail(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -182,17 +203,22 @@ public class AdminOrderServlet
         long orderId;
 
         try {
+
             orderId =
                 Long.parseLong(
                     request.getParameter(
                         "id"
                     )
                 );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             response.sendError(
                 HttpServletResponse
                 .SC_BAD_REQUEST
             );
+
             return;
         }
 
@@ -202,10 +228,12 @@ public class AdminOrderServlet
             );
 
         if (order == null) {
+
             response.sendError(
                 HttpServletResponse
                 .SC_NOT_FOUND
             );
+
             return;
         }
 

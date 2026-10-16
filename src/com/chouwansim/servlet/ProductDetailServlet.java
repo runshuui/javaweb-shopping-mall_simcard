@@ -27,6 +27,7 @@ public class ProductDetailServlet
     private SimReviewService reviewService =
         new SimReviewService();
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -43,31 +44,38 @@ public class ProductDetailServlet
             response.sendError(
                 HttpServletResponse
                 .SC_BAD_REQUEST,
-                "ç¼ºå°‘å•†å“ç¼–å·ã€‚"
+                "È±ÉÙÉÌÆ·±àºÅ¡£"
             );
 
             return;
         }
 
+
         try {
+
             long productId =
                 Long.parseLong(
                     idText.trim()
                 );
+
 
             Product product =
                 productService.findById(
                     productId
                 );
 
+
             if (product == null) {
+
                 response.sendError(
                     HttpServletResponse
                     .SC_NOT_FOUND,
-                    "å•†å“ä¸å­˜åœ¨ã€‚"
+                    "ÉÌÆ·²»´æÔÚ¡£"
                 );
+
                 return;
             }
+
 
             if (!"PUBLISHED".equals(
                     product.getStatus())) {
@@ -75,16 +83,22 @@ public class ProductDetailServlet
                 response.sendError(
                     HttpServletResponse
                     .SC_NOT_FOUND,
-                    "å•†å“å½“å‰æœªä¸Šæ¶ã€‚"
+                    "ÉÌÆ·µ±Ç°Î´ÉÏ¼Ü¡£"
                 );
+
                 return;
             }
+
 
             request.setAttribute(
                 "product",
                 product
             );
 
+
+            /*
+             * eUICC ²»Ê¹ÓÃÁùÎ¬ÆÀ¼Û¡£
+             */
             if ("SIM_ESIM".equals(
                     product.getType())) {
 
@@ -99,6 +113,7 @@ public class ProductDetailServlet
                         productId
                     );
 
+
                 request.setAttribute(
                     "reviewSummary",
                     summary
@@ -110,23 +125,31 @@ public class ProductDetailServlet
                 );
             }
 
-            request.getRequestDispatcher(
-                "/product-detail.jsp"
-            ).forward(
-                request,
-                response
-            );
 
-        } catch (NumberFormatException e) {
+            request
+                .getRequestDispatcher(
+                    "/product-detail.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
+
+
+        } catch (
+            NumberFormatException e) {
+
             response.sendError(
                 HttpServletResponse
                 .SC_BAD_REQUEST,
-                "å•†å“ç¼–å·æ ¼å¼ä¸æ­£ç¡®ã€‚"
+                "ÉÌÆ·±àºÅ¸ñÊ½²»ÕıÈ·¡£"
             );
 
+
         } catch (SQLException e) {
+
             throw new ServletException(
-                "è¯»å–å•†å“è¯¦æƒ…å¤±è´¥ã€‚",
+                "¶ÁÈ¡ÉÌÆ·ÏêÇéÊ§°Ü¡£",
                 e
             );
         }

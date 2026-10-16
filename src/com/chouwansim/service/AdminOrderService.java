@@ -11,11 +11,13 @@ public class AdminOrderService {
     private AdminOrderDao orderDao =
         new AdminOrderDao();
 
+
     public List<Order> findAll()
         throws SQLException {
 
         return orderDao.findAll();
     }
+
 
     public Order findDetail(
         long orderId)
@@ -26,6 +28,7 @@ public class AdminOrderService {
         );
     }
 
+
     public void shipOrder(
         long orderId,
         String company,
@@ -33,30 +36,34 @@ public class AdminOrderService {
         throws SQLException {
 
         if (company == null
-            || company.trim().length() == 0) {
+            || company.trim()
+                      .length() == 0) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥ç‰©æµå…¬å¸ã€‚"
+                "ÇëÊäÈëÎïÁ÷¹«Ë¾¡£"
             );
         }
 
         if (trackingNo == null
-            || trackingNo.trim().length() == 0) {
+            || trackingNo.trim()
+                         .length() == 0) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥è¿å•å·ã€‚"
+                "ÇëÊäÈëÔËµ¥ºÅ¡£"
             );
         }
 
         if (company.length() > 100) {
+
             throw new IllegalArgumentException(
-                "ç‰©æµå…¬å¸åç§°è¿‡é•¿ã€‚"
+                "ÎïÁ÷¹«Ë¾Ãû³Æ¹ı³¤¡£"
             );
         }
 
         if (trackingNo.length() > 100) {
+
             throw new IllegalArgumentException(
-                "è¿å•å·è¿‡é•¿ã€‚"
+                "ÔËµ¥ºÅ¹ı³¤¡£"
             );
         }
 

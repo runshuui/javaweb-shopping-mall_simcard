@@ -25,7 +25,9 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
 
             String sql =
                 "SELECT "
@@ -41,19 +43,33 @@ public class AdminOrderDao {
                 + "order_created_at DESC, "
                 + "order_id DESC";
 
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            rs =
+                pstmt.executeQuery();
 
             while (rs.next()) {
-                orders.add(mapOrder(rs));
+
+                orders.add(
+                    mapOrder(rs)
+                );
             }
 
             return orders;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
+
 
     public Order findDetail(
         long orderId)
@@ -62,35 +78,59 @@ public class AdminOrderDao {
         Connection conn = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
 
             Order order =
-                findOrder(conn, orderId);
+                findOrder(
+                    conn,
+                    orderId
+                );
 
             if (order == null) {
                 return null;
             }
 
             order.setItems(
-                findItems(conn, orderId)
+                findItems(
+                    conn,
+                    orderId
+                )
             );
 
-            loadAddress(conn, order);
-            loadPayment(conn, order);
-            loadLogistics(conn, order);
+            loadAddress(
+                conn,
+                order
+            );
+
+            loadPayment(
+                conn,
+                order
+            );
+
+            loadLogistics(
+                conn,
+                order
+            );
 
             return order;
 
         } finally {
+
             if (conn != null) {
+
                 try {
                     conn.close();
-                } catch (SQLException e) {
+                } catch (
+                    SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     private Order findOrder(
         Connection conn,
@@ -101,6 +141,7 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "order_id, "
@@ -113,17 +154,28 @@ public class AdminOrderDao {
                 + "FROM orders "
                 + "WHERE order_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, orderId);
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             if (rs.next()) {
+
                 return mapOrder(rs);
             }
 
             return null;
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -133,6 +185,7 @@ public class AdminOrderDao {
             }
         }
     }
+
 
     private List<OrderItem> findItems(
         Connection conn,
@@ -146,6 +199,7 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "orderitem_id, "
@@ -157,40 +211,63 @@ public class AdminOrderDao {
                 + "orderitem_subtotal "
                 + "FROM order_item "
                 + "WHERE order_id = ? "
-                + "ORDER BY orderitem_id ASC";
+                + "ORDER BY "
+                + "orderitem_id ASC";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, orderId);
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             while (rs.next()) {
+
                 OrderItem item =
                     new OrderItem();
 
                 item.setId(
-                    rs.getLong("orderitem_id")
+                    rs.getLong(
+                        "orderitem_id"
+                    )
                 );
+
                 item.setOrderId(
-                    rs.getLong("order_id")
+                    rs.getLong(
+                        "order_id"
+                    )
                 );
+
                 item.setProductId(
-                    rs.getLong("pduct_id")
+                    rs.getLong(
+                        "pduct_id"
+                    )
                 );
+
                 item.setProductName(
                     rs.getString(
                         "orderitem_product_name"
                     )
                 );
+
                 item.setUnitPrice(
                     rs.getBigDecimal(
                         "orderitem_unit_price"
                     )
                 );
+
                 item.setQuantity(
                     rs.getInt(
                         "orderitem_quantity"
                     )
                 );
+
                 item.setSubtotal(
                     rs.getBigDecimal(
                         "orderitem_subtotal"
@@ -203,6 +280,7 @@ public class AdminOrderDao {
             return items;
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -212,6 +290,7 @@ public class AdminOrderDao {
             }
         }
     }
+
 
     private void loadAddress(
         Connection conn,
@@ -222,6 +301,7 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "orderaddr_receiver_name, "
@@ -229,28 +309,42 @@ public class AdminOrderDao {
                 + "orderaddr_postal_code, "
                 + "orderaddr_address "
                 + "FROM order_address "
-                + "WHERE orderaddr_order_id = ?";
+                + "WHERE "
+                + "orderaddr_order_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, order.getId());
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                order.getId()
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             if (rs.next()) {
+
                 order.setReceiverName(
                     rs.getString(
                         "orderaddr_receiver_name"
                     )
                 );
+
                 order.setPhone(
                     rs.getString(
                         "orderaddr_phone"
                     )
                 );
+
                 order.setPostalCode(
                     rs.getString(
                         "orderaddr_postal_code"
                     )
                 );
+
                 order.setAddress(
                     rs.getString(
                         "orderaddr_address"
@@ -259,6 +353,7 @@ public class AdminOrderDao {
             }
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -269,6 +364,7 @@ public class AdminOrderDao {
         }
     }
 
+
     private void loadPayment(
         Connection conn,
         Order order)
@@ -278,6 +374,7 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "payment_method, "
@@ -289,26 +386,39 @@ public class AdminOrderDao {
                 + "ORDER BY payment_id DESC "
                 + "LIMIT 1";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, order.getId());
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                order.getId()
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             if (rs.next()) {
+
                 order.setPaymentMethod(
                     rs.getString(
                         "payment_method"
                     )
                 );
+
                 order.setPaymentStatus(
                     rs.getString(
                         "payment_status"
                     )
                 );
+
                 order.setPaymentTradeNo(
                     rs.getString(
                         "payment_trade_no"
                     )
                 );
+
                 order.setPaymentPaidAt(
                     rs.getTimestamp(
                         "payment_paid_at"
@@ -317,6 +427,7 @@ public class AdminOrderDao {
             }
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -326,6 +437,7 @@ public class AdminOrderDao {
             }
         }
     }
+
 
     private void loadLogistics(
         Connection conn,
@@ -336,6 +448,7 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT "
                 + "logistics_company, "
@@ -344,21 +457,33 @@ public class AdminOrderDao {
                 + "FROM logistics "
                 + "WHERE logistics_order_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, order.getId());
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                order.getId()
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             if (rs.next()) {
+
                 order.setLogisticsCompany(
                     rs.getString(
                         "logistics_company"
                     )
                 );
+
                 order.setLogisticsTrackingNo(
                     rs.getString(
                         "logistics_tracking_no"
                     )
                 );
+
                 order.setLogisticsStatus(
                     rs.getString(
                         "logistics_status"
@@ -367,6 +492,7 @@ public class AdminOrderDao {
             }
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -376,6 +502,7 @@ public class AdminOrderDao {
             }
         }
     }
+
 
     public void shipOrder(
         long orderId,
@@ -386,9 +513,18 @@ public class AdminOrderDao {
         Connection conn = null;
 
         try {
-            conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
 
+            conn =
+                DBUtil.getConnection();
+
+            conn.setAutoCommit(
+                false
+            );
+
+
+            /*
+             * œ»ºÏ≤È∂©µ•◊¥Ã¨≤¢À¯∂®°£
+             */
             String status =
                 findOrderStatusForUpdate(
                     conn,
@@ -396,17 +532,24 @@ public class AdminOrderDao {
                 );
 
             if (status == null) {
+
                 throw new IllegalArgumentException(
-                    "ËÆ¢Âçï‰∏çÂ≠òÂú®„ÄÇ"
+                    "∂©µ•≤ª¥Ê‘⁄°£"
                 );
             }
 
-            if (!"PAID".equals(status)) {
+            if (!"PAID".equals(
+                    status)) {
+
                 throw new IllegalArgumentException(
-                    "Âè™ÊúâÂ∑≤ÊîØ‰ªòËÆ¢ÂçïÂèØ‰ª•ÂèëË¥ß„ÄÇ"
+                    "÷ª”–“—÷ß∏∂∂©µ•ø…“‘∑¢ªı°£"
                 );
             }
 
+
+            /*
+             * –¥ŒÔ¡˜–≈œ¢°£
+             */
             insertOrUpdateLogistics(
                 conn,
                 orderId,
@@ -414,37 +557,60 @@ public class AdminOrderDao {
                 trackingNo
             );
 
+
+            /*
+             * ∏¸–¬∂©µ•◊¥Ã¨°£
+             */
             updateOrderShipped(
                 conn,
                 orderId
             );
 
+
             conn.commit();
 
         } catch (SQLException e) {
+
             rollback(conn);
+
             throw e;
 
-        } catch (IllegalArgumentException e) {
+        } catch (
+            IllegalArgumentException e) {
+
             rollback(conn);
+
             throw e;
 
         } finally {
+
             if (conn != null) {
+
                 try {
-                    conn.setAutoCommit(true);
-                } catch (SQLException e) {
+
+                    conn.setAutoCommit(
+                        true
+                    );
+
+                } catch (
+                    SQLException e) {
+
                     e.printStackTrace();
                 }
 
                 try {
+
                     conn.close();
-                } catch (SQLException e) {
+
+                } catch (
+                    SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     private String findOrderStatusForUpdate(
         Connection conn,
@@ -455,17 +621,28 @@ public class AdminOrderDao {
         ResultSet rs = null;
 
         try {
+
             String sql =
                 "SELECT order_status "
                 + "FROM orders "
                 + "WHERE order_id = ? "
                 + "FOR UPDATE";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, orderId);
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            rs =
+                pstmt.executeQuery();
 
             if (rs.next()) {
+
                 return rs.getString(
                     "order_status"
                 );
@@ -474,6 +651,7 @@ public class AdminOrderDao {
             return null;
 
         } finally {
+
             if (rs != null) {
                 rs.close();
             }
@@ -483,6 +661,7 @@ public class AdminOrderDao {
             }
         }
     }
+
 
     private void insertOrUpdateLogistics(
         Connection conn,
@@ -494,6 +673,7 @@ public class AdminOrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "INSERT INTO logistics ("
                 + "logistics_order_id, "
@@ -513,20 +693,36 @@ public class AdminOrderDao {
                 + "logistics_shipped_at = NOW(), "
                 + "logistics_updated_at = NOW()";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
 
-            pstmt.setLong(1, orderId);
-            pstmt.setString(2, company);
-            pstmt.setString(3, trackingNo);
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
+            pstmt.setString(
+                2,
+                company
+            );
+
+            pstmt.setString(
+                3,
+                trackingNo
+            );
 
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
+
 
     private void updateOrderShipped(
         Connection conn,
@@ -536,63 +732,93 @@ public class AdminOrderDao {
         PreparedStatement pstmt = null;
 
         try {
+
             String sql =
                 "UPDATE orders "
                 + "SET order_status = 'SHIPPED', "
                 + "order_updated_at = NOW() "
                 + "WHERE order_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, orderId);
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+            pstmt.setLong(
+                1,
+                orderId
+            );
+
             pstmt.executeUpdate();
 
         } finally {
+
             if (pstmt != null) {
                 pstmt.close();
             }
         }
     }
 
+
     private void rollback(
         Connection conn) {
 
         if (conn != null) {
+
             try {
                 conn.rollback();
-            } catch (SQLException e) {
+            } catch (
+                SQLException e) {
+
                 e.printStackTrace();
             }
         }
     }
 
+
     private Order mapOrder(
         ResultSet rs)
         throws SQLException {
 
-        Order order = new Order();
+        Order order =
+            new Order();
 
         order.setId(
-            rs.getLong("order_id")
+            rs.getLong(
+                "order_id"
+            )
         );
+
         order.setOrderNumber(
-            rs.getString("order_number")
+            rs.getString(
+                "order_number"
+            )
         );
+
         order.setUserId(
-            rs.getLong("useracc_id")
+            rs.getLong(
+                "useracc_id"
+            )
         );
+
         order.setStatus(
-            rs.getString("order_status")
+            rs.getString(
+                "order_status"
+            )
         );
+
         order.setTotalAmount(
             rs.getBigDecimal(
                 "order_total_amount"
             )
         );
+
         order.setCreatedAt(
             rs.getTimestamp(
                 "order_created_at"
             )
         );
+
         order.setUpdatedAt(
             rs.getTimestamp(
                 "order_updated_at"

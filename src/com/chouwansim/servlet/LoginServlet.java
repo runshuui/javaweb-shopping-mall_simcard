@@ -12,12 +12,16 @@ import javax.servlet.http.HttpSession;
 import com.chouwansim.entity.UserAccount;
 import com.chouwansim.service.LoginService;
 
-public class LoginServlet extends HttpServlet {
+public class LoginServlet
+    extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID =
+        1L;
+
 
     private LoginService loginService =
         new LoginService();
+
 
     protected void doGet(
         HttpServletRequest request,
@@ -28,30 +32,39 @@ public class LoginServlet extends HttpServlet {
             request.getContextPath()
             + "/login.jsp"
         );
+
     }
+
 
     protected void doPost(
         HttpServletRequest request,
         HttpServletResponse response)
         throws ServletException, IOException {
 
+
         request.setCharacterEncoding(
             "UTF-8"
         );
 
+
         String email =
-            request.getParameter(
-                "email"
-            );
+            request.getParameter("email");
+
 
         String password =
-            request.getParameter(
-                "password"
-            );
+            request.getParameter("password");
+
 
         if (email != null) {
+
             email = email.trim();
+
         }
+
+
+        /*
+         * »ù±¾¼ì²é
+         */
 
         if (email == null
             || email.length() == 0
@@ -60,15 +73,22 @@ public class LoginServlet extends HttpServlet {
 
             request.setAttribute(
                 "loginError",
-                "è¯·è¾“å…¥é‚®ç®±å’Œå¯†ç ã€‚"
+                "ÇëÊäÈëÓÊÏäºÍÃÜÂë¡£"
             );
 
-            request.getRequestDispatcher(
-                "/login.jsp"
-            ).forward(request, response);
+            request
+                .getRequestDispatcher(
+                    "/login.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
             return;
+
         }
+
 
         try {
 
@@ -78,60 +98,89 @@ public class LoginServlet extends HttpServlet {
                     password
                 );
 
+
             if (user != null) {
 
                 HttpSession session =
                     request.getSession();
+
 
                 session.setAttribute(
                     "loginUser",
                     user
                 );
 
+
                 session.setAttribute(
                     "loginUserId",
                     new Long(user.getId())
                 );
+
 
                 session.setAttribute(
                     "loginUserName",
                     user.getDisplayName()
                 );
 
+
                 session.setAttribute(
                     "loginUserRole",
                     user.getRole()
                 );
+
+
+                /*
+                 * µÇÂ¼³É¹¦½øÈëÉÌ³ÇÊ×Ò³
+                 */
 
                 response.sendRedirect(
                     request.getContextPath()
                     + "/index.jsp"
                 );
 
+
             } else {
 
                 request.setAttribute(
                     "loginError",
-                    "é‚®ç®±æˆ–å¯†ç é”™è¯¯ã€‚"
+                    "ÓÊÏä»òÃÜÂë´íÎó¡£"
                 );
 
-                request.getRequestDispatcher(
-                    "/login.jsp"
-                ).forward(request, response);
+
+                request
+                    .getRequestDispatcher(
+                        "/login.jsp"
+                    )
+                    .forward(
+                        request,
+                        response
+                    );
+
             }
+
 
         } catch (SQLException e) {
 
             e.printStackTrace();
 
+
             request.setAttribute(
                 "loginError",
-                "æ•°æ®åº“è¿æ¥å¤±è´¥ï¼Œè¯·æ£€æŸ¥æœåŠ¡å™¨é…ç½®ã€‚"
+                "Êı¾İ¿âÁ¬½ÓÊ§°Ü£¬Çë¼ì²é·şÎñÆ÷ÅäÖÃ¡£"
             );
 
-            request.getRequestDispatcher(
-                "/login.jsp"
-            ).forward(request, response);
+
+            request
+                .getRequestDispatcher(
+                    "/login.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
+
         }
+
     }
+
 }

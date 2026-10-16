@@ -15,6 +15,10 @@ import com.chouwansim.util.DBUtil;
 
 public class SimReviewDao {
 
+
+    /*
+     * 查询某个用户已经发表的评价。
+     */
     public List<SimReview> findByUserId(
         long userId)
         throws SQLException {
@@ -27,7 +31,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -52,21 +59,49 @@ public class SimReviewDao {
                 + "r.simrev_updated_at DESC, "
                 + "r.simrev_id DESC";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             while (rs.next()) {
-                reviews.add(mapReview(rs));
+
+                reviews.add(
+                    mapReview(
+                        rs
+                    )
+                );
             }
+
 
             return reviews;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 查询一个用户对一个商品的评价。
+     */
     public SimReview findByProductAndUser(
         long productId,
         long userId)
@@ -77,7 +112,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -100,22 +138,54 @@ public class SimReviewDao {
                 + "WHERE r.simrev_pduct_id = ? "
                 + "AND r.simrev_useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, productId);
-            pstmt.setLong(2, userId);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                productId
+            );
+
+
+            pstmt.setLong(
+                2,
+                userId
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             if (rs.next()) {
-                return mapReview(rs);
+
+                return mapReview(
+                    rs
+                );
             }
+
 
             return null;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 查询当前用户还没有评价过的
+     * 已上架 SIM / eSIM 商品。
+     */
     public List<Product> findReviewableProducts(
         long userId)
         throws SQLException {
@@ -128,7 +198,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -151,43 +224,86 @@ public class SimReviewDao {
                 + "p.pduct_display_order ASC, "
                 + "p.pduct_id ASC";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             while (rs.next()) {
-                Product product = new Product();
+
+                Product product =
+                    new Product();
+
 
                 product.setId(
-                    rs.getLong("pduct_id")
+                    rs.getLong(
+                        "pduct_id"
+                    )
                 );
+
+
                 product.setName(
-                    rs.getString("pduct_name")
+                    rs.getString(
+                        "pduct_name"
+                    )
                 );
+
+
                 product.setType(
-                    rs.getString("pduct_type")
+                    rs.getString(
+                        "pduct_type"
+                    )
                 );
+
+
                 product.setShortDescription(
                     rs.getString(
                         "pduct_short_description"
                     )
                 );
+
+
                 product.setCoverImage(
                     rs.getString(
                         "pduct_cover_image"
                     )
                 );
 
-                products.add(product);
+
+                products.add(
+                    product
+                );
             }
+
 
             return products;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 第一次发表评价。
+     */
     public void insert(
         SimReview review)
         throws SQLException {
@@ -196,7 +312,10 @@ public class SimReviewDao {
         PreparedStatement pstmt = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "INSERT INTO sim_review ("
@@ -216,52 +335,83 @@ public class SimReviewDao {
                 + "NOW(), NOW()"
                 + ")";
 
-            pstmt = conn.prepareStatement(sql);
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setLong(
                 1,
                 review.getProductId()
             );
+
+
             pstmt.setLong(
                 2,
                 review.getUserId()
             );
+
+
             pstmt.setInt(
                 3,
                 review.getApplicationScore()
             );
+
+
             pstmt.setInt(
                 4,
                 review.getValueScore()
             );
+
+
             pstmt.setInt(
                 5,
                 review.getNetworkScore()
             );
+
+
             pstmt.setInt(
                 6,
                 review.getRoamingScore()
             );
+
+
             pstmt.setInt(
                 7,
                 review.getTransferScore()
             );
+
+
             pstmt.setInt(
                 8,
                 review.getRenewalScore()
             );
+
+
             pstmt.setString(
                 9,
                 review.getContent()
             );
 
+
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 修改自己的评价。
+     */
     public void update(
         SimReview review)
         throws SQLException {
@@ -270,7 +420,10 @@ public class SimReviewDao {
         PreparedStatement pstmt = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "UPDATE sim_review SET "
@@ -285,52 +438,84 @@ public class SimReviewDao {
                 + "WHERE simrev_pduct_id = ? "
                 + "AND simrev_useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setInt(
                 1,
                 review.getApplicationScore()
             );
+
+
             pstmt.setInt(
                 2,
                 review.getValueScore()
             );
+
+
             pstmt.setInt(
                 3,
                 review.getNetworkScore()
             );
+
+
             pstmt.setInt(
                 4,
                 review.getRoamingScore()
             );
+
+
             pstmt.setInt(
                 5,
                 review.getTransferScore()
             );
+
+
             pstmt.setInt(
                 6,
                 review.getRenewalScore()
             );
+
+
             pstmt.setString(
                 7,
                 review.getContent()
             );
+
+
             pstmt.setLong(
                 8,
                 review.getProductId()
             );
+
+
             pstmt.setLong(
                 9,
                 review.getUserId()
             );
 
+
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 商品详情页：
+     * 查询这个商品的全部评价。
+     */
     public List<SimReview> findByProductId(
         long productId)
         throws SQLException {
@@ -343,7 +528,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -372,23 +560,50 @@ public class SimReviewDao {
                 + "r.simrev_updated_at DESC, "
                 + "r.simrev_id DESC";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, productId);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                productId
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             while (rs.next()) {
+
                 reviews.add(
-                    mapFullReview(rs)
+                    mapFullReview(
+                        rs
+                    )
                 );
             }
+
 
             return reviews;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 商品详情页：
+     * 六维平均分 + 评价人数。
+     */
     public ReviewSummary findSummary(
         long productId)
         throws SQLException {
@@ -398,7 +613,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -418,46 +636,96 @@ public class SimReviewDao {
                 + "FROM sim_review "
                 + "WHERE simrev_pduct_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, productId);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                productId
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             ReviewSummary summary =
                 new ReviewSummary();
 
+
             if (rs.next()) {
+
                 summary.setReviewCount(
-                    rs.getInt("review_count")
+                    rs.getInt(
+                        "review_count"
+                    )
                 );
+
+
                 summary.setApplicationAverage(
                     rs.getDouble(
                         "application_avg"
                     )
                 );
+
+
                 summary.setValueAverage(
-                    rs.getDouble("value_avg")
+                    rs.getDouble(
+                        "value_avg"
+                    )
                 );
+
+
                 summary.setNetworkAverage(
-                    rs.getDouble("network_avg")
+                    rs.getDouble(
+                        "network_avg"
+                    )
                 );
+
+
                 summary.setRoamingAverage(
-                    rs.getDouble("roaming_avg")
+                    rs.getDouble(
+                        "roaming_avg"
+                    )
                 );
+
+
                 summary.setTransferAverage(
-                    rs.getDouble("transfer_avg")
+                    rs.getDouble(
+                        "transfer_avg"
+                    )
                 );
+
+
                 summary.setRenewalAverage(
-                    rs.getDouble("renewal_avg")
+                    rs.getDouble(
+                        "renewal_avg"
+                    )
                 );
             }
+
 
             return summary;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 管理员后台：
+     * 查询全部评价。
+     */
     public List<SimReview> findAll()
         throws SQLException {
 
@@ -469,7 +737,10 @@ public class SimReviewDao {
         ResultSet rs = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "SELECT "
@@ -497,22 +768,43 @@ public class SimReviewDao {
                 + "r.simrev_updated_at DESC, "
                 + "r.simrev_id DESC";
 
-            pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             while (rs.next()) {
+
                 reviews.add(
-                    mapFullReview(rs)
+                    mapFullReview(
+                        rs
+                    )
                 );
             }
+
 
             return reviews;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 管理员删除评价。
+     */
     public void deleteById(
         long reviewId)
         throws SQLException {
@@ -521,157 +813,268 @@ public class SimReviewDao {
         PreparedStatement pstmt = null;
 
         try {
-            conn = DBUtil.getConnection();
+
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "DELETE FROM sim_review "
                 + "WHERE simrev_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, reviewId);
+
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            pstmt.setLong(
+                1,
+                reviewId
+            );
+
+
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
+
+    /*
+     * 用户自己的评价查询映射。
+     *
+     * SQL 只包含商品名，
+     * 不包含用户资料。
+     */
     private SimReview mapReview(
         ResultSet rs)
         throws SQLException {
 
-        SimReview review = new SimReview();
+        SimReview review =
+            new SimReview();
+
 
         review.setId(
-            rs.getLong("simrev_id")
+            rs.getLong(
+                "simrev_id"
+            )
         );
+
+
         review.setProductId(
-            rs.getLong("simrev_pduct_id")
+            rs.getLong(
+                "simrev_pduct_id"
+            )
         );
+
+
         review.setUserId(
-            rs.getLong("simrev_useracc_id")
+            rs.getLong(
+                "simrev_useracc_id"
+            )
         );
+
+
         review.setApplicationScore(
             rs.getInt(
                 "simrev_application_score"
             )
         );
+
+
         review.setValueScore(
             rs.getInt(
                 "simrev_value_score"
             )
         );
+
+
         review.setNetworkScore(
             rs.getInt(
                 "simrev_network_score"
             )
         );
+
+
         review.setRoamingScore(
             rs.getInt(
                 "simrev_roaming_score"
             )
         );
+
+
         review.setTransferScore(
             rs.getInt(
                 "simrev_transfer_score"
             )
         );
+
+
         review.setRenewalScore(
             rs.getInt(
                 "simrev_renewal_score"
             )
         );
+
+
         review.setContent(
-            rs.getString("simrev_content")
+            rs.getString(
+                "simrev_content"
+            )
         );
+
+
         review.setCreatedAt(
             rs.getTimestamp(
                 "simrev_created_at"
             )
         );
+
+
         review.setUpdatedAt(
             rs.getTimestamp(
                 "simrev_updated_at"
             )
         );
+
+
         review.setProductName(
-            rs.getString("pduct_name")
+            rs.getString(
+                "pduct_name"
+            )
         );
+
 
         return review;
     }
 
+
+    /*
+     * 商品详情和管理员后台使用。
+     *
+     * 除评价外还读取：
+     * 用户昵称、邮箱、商品名。
+     */
     private SimReview mapFullReview(
         ResultSet rs)
         throws SQLException {
 
-        SimReview review = new SimReview();
+        SimReview review =
+            new SimReview();
+
 
         review.setId(
-            rs.getLong("simrev_id")
+            rs.getLong(
+                "simrev_id"
+            )
         );
+
+
         review.setProductId(
-            rs.getLong("simrev_pduct_id")
+            rs.getLong(
+                "simrev_pduct_id"
+            )
         );
+
+
         review.setUserId(
-            rs.getLong("simrev_useracc_id")
+            rs.getLong(
+                "simrev_useracc_id"
+            )
         );
+
+
         review.setApplicationScore(
             rs.getInt(
                 "simrev_application_score"
             )
         );
+
+
         review.setValueScore(
             rs.getInt(
                 "simrev_value_score"
             )
         );
+
+
         review.setNetworkScore(
             rs.getInt(
                 "simrev_network_score"
             )
         );
+
+
         review.setRoamingScore(
             rs.getInt(
                 "simrev_roaming_score"
             )
         );
+
+
         review.setTransferScore(
             rs.getInt(
                 "simrev_transfer_score"
             )
         );
+
+
         review.setRenewalScore(
             rs.getInt(
                 "simrev_renewal_score"
             )
         );
+
+
         review.setContent(
-            rs.getString("simrev_content")
+            rs.getString(
+                "simrev_content"
+            )
         );
+
+
         review.setCreatedAt(
             rs.getTimestamp(
                 "simrev_created_at"
             )
         );
+
+
         review.setUpdatedAt(
             rs.getTimestamp(
                 "simrev_updated_at"
             )
         );
+
+
         review.setProductName(
-            rs.getString("pduct_name")
+            rs.getString(
+                "pduct_name"
+            )
         );
+
+
         review.setUserDisplayName(
             rs.getString(
                 "useracc_display_name"
             )
         );
+
+
         review.setUserEmail(
             rs.getString(
                 "useracc_email"
             )
         );
+
 
         return review;
     }

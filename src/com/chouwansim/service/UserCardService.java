@@ -124,7 +124,7 @@ public class UserCardService {
             if (existing == null) {
 
                 throw new IllegalArgumentException(
-                    "å¡ç‰‡ä¸å­˜åœ¨ï¼Œæˆ–è€…æ‚¨æ— æƒä¿®æ”¹è¯¥å¡ç‰‡ã€‚"
+                    "¿¨Æ¬²»´æÔÚ£¬»òÕßÄúÎŞÈ¨ĞŞ¸Ä¸Ã¿¨Æ¬¡£"
                 );
             }
 
@@ -146,7 +146,7 @@ public class UserCardService {
         if (keepalive == null) {
 
             throw new IllegalArgumentException(
-                "ä¿å·è®¾ç½®ä¸èƒ½ä¸ºç©ºã€‚"
+                "±£ºÅÉèÖÃ²»ÄÜÎª¿Õ¡£"
             );
         }
 
@@ -154,7 +154,7 @@ public class UserCardService {
             <= 0L) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ç¼–å·ä¸æ­£ç¡®ã€‚"
+                "¿¨Æ¬±àºÅ²»ÕıÈ·¡£"
             );
         }
 
@@ -167,7 +167,7 @@ public class UserCardService {
         if (card == null) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ä¸å­˜åœ¨ï¼Œæˆ–è€…æ‚¨æ— æƒä¿®æ”¹è¯¥å¡ç‰‡ã€‚"
+                "¿¨Æ¬²»´æÔÚ£¬»òÕßÄúÎŞÈ¨ĞŞ¸Ä¸Ã¿¨Æ¬¡£"
             );
         }
 
@@ -203,7 +203,7 @@ public class UserCardService {
         if (cardId <= 0L) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ç¼–å·ä¸æ­£ç¡®ã€‚"
+                "¿¨Æ¬±àºÅ²»ÕıÈ·¡£"
             );
         }
 
@@ -216,7 +216,7 @@ public class UserCardService {
         if (card == null) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ä¸å­˜åœ¨ï¼Œæˆ–è€…æ‚¨æ— æƒæ“ä½œè¯¥å¡ç‰‡ã€‚"
+                "¿¨Æ¬²»´æÔÚ£¬»òÕßÄúÎŞÈ¨²Ù×÷¸Ã¿¨Æ¬¡£"
             );
         }
 
@@ -230,7 +230,7 @@ public class UserCardService {
         if (keepalive == null) {
 
             throw new IllegalArgumentException(
-                "è¯¥å¡ç‰‡å°šæœªè®¾ç½®ä¿å·è®¡åˆ’ã€‚"
+                "¸Ã¿¨Æ¬ÉĞÎ´ÉèÖÃ±£ºÅ¼Æ»®¡£"
             );
         }
 
@@ -266,10 +266,10 @@ public class UserCardService {
     }
 
     /**
-     * å…³é—­å¡ç‰‡ã€‚
+     * ¹Ø±Õ¿¨Æ¬¡£
      *
-     * æ•°æ®ä»ç„¶ä¿ç•™ï¼Œ
-     * çŠ¶æ€å˜æˆ CLOSEDã€‚
+     * Êı¾İÈÔÈ»±£Áô£¬
+     * ×´Ì¬±ä³É CLOSED¡£
      */
     public void closeCard(
         long userId,
@@ -285,7 +285,7 @@ public class UserCardService {
         if (card == null) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ä¸å­˜åœ¨ï¼Œæˆ–è€…æ‚¨æ— æƒæ“ä½œè¯¥å¡ç‰‡ã€‚"
+                "¿¨Æ¬²»´æÔÚ£¬»òÕßÄúÎŞÈ¨²Ù×÷¸Ã¿¨Æ¬¡£"
             );
         }
 
@@ -293,7 +293,7 @@ public class UserCardService {
                 card.getStatus())) {
 
             throw new IllegalArgumentException(
-                "è¯¥å¡ç‰‡å·²ç»å¤„äºå…³é—­çŠ¶æ€ã€‚"
+                "¸Ã¿¨Æ¬ÒÑ¾­´¦ÓÚ¹Ø±Õ×´Ì¬¡£"
             );
         }
 
@@ -304,10 +304,10 @@ public class UserCardService {
     }
 
     /**
-     * å½»åº•åˆ é™¤å¡ç‰‡ã€‚
+     * ³¹µ×É¾³ı¿¨Æ¬¡£
      *
-     * card_keepalive ä¼šåŒæ—¶åˆ é™¤ã€‚
-     * å†å²è®¢å•ä¸ä¼šå—åˆ°å½±å“ã€‚
+     * card_keepalive »áÍ¬Ê±É¾³ı¡£
+     * ÀúÊ·¶©µ¥²»»áÊÜµ½Ó°Ïì¡£
      */
     public void deleteCard(
         long userId,
@@ -323,7 +323,7 @@ public class UserCardService {
         if (card == null) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ä¸å­˜åœ¨ï¼Œæˆ–è€…æ‚¨æ— æƒåˆ é™¤è¯¥å¡ç‰‡ã€‚"
+                "¿¨Æ¬²»´æÔÚ£¬»òÕßÄúÎŞÈ¨É¾³ı¸Ã¿¨Æ¬¡£"
             );
         }
 
@@ -466,14 +466,14 @@ public class UserCardService {
         if (card == null) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡ä¿¡æ¯ä¸èƒ½ä¸ºç©ºã€‚"
+                "¿¨Æ¬ĞÅÏ¢²»ÄÜÎª¿Õ¡£"
             );
         }
 
         if (card.getUserId() <= 0L) {
 
             throw new IllegalArgumentException(
-                "ç”¨æˆ·ä¿¡æ¯æ— æ•ˆã€‚"
+                "ÓÃ»§ĞÅÏ¢ÎŞĞ§¡£"
             );
         }
 
@@ -481,7 +481,7 @@ public class UserCardService {
                 card.getNickname())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥å¡ç‰‡æ˜µç§°ã€‚"
+                "ÇëÊäÈë¿¨Æ¬êÇ³Æ¡£"
             );
         }
 
@@ -496,7 +496,7 @@ public class UserCardService {
                 .equals(status)) {
 
             throw new IllegalArgumentException(
-                "å¡ç‰‡çŠ¶æ€ä¸æ­£ç¡®ã€‚"
+                "¿¨Æ¬×´Ì¬²»ÕıÈ·¡£"
             );
         }
     }
@@ -515,7 +515,7 @@ public class UserCardService {
                 .equals(method)) {
 
             throw new IllegalArgumentException(
-                "è¯·é€‰æ‹©æ­£ç¡®çš„ä¿å·æ–¹å¼ã€‚"
+                "ÇëÑ¡ÔñÕıÈ·µÄ±£ºÅ·½Ê½¡£"
             );
         }
 
@@ -525,7 +525,7 @@ public class UserCardService {
                > 12) {
 
             throw new IllegalArgumentException(
-                "ä¿å·å‘¨æœŸå¿…é¡»åœ¨ 1 è‡³ 12 ä¸ªæœˆä¹‹é—´ã€‚"
+                "±£ºÅÖÜÆÚ±ØĞëÔÚ 1 ÖÁ 12 ¸öÔÂÖ®¼ä¡£"
             );
         }
 
@@ -533,7 +533,7 @@ public class UserCardService {
             == null) {
 
             throw new IllegalArgumentException(
-                "è¯·é€‰æ‹©ä¸Šæ¬¡ä¿å·æ—¥æœŸã€‚"
+                "ÇëÑ¡ÔñÉÏ´Î±£ºÅÈÕÆÚ¡£"
             );
         }
     }

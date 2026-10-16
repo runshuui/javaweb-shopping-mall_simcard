@@ -32,14 +32,17 @@ public class UserOrderServlet
             );
 
         if (userId == null) {
+
             response.sendRedirect(
                 request.getContextPath()
                 + "/login.jsp"
             );
+
             return;
         }
 
         try {
+
             List<Order> orders =
                 orderService.findUserOrders(
                     userId.longValue()
@@ -50,17 +53,23 @@ public class UserOrderServlet
                 orders
             );
 
-            request.getRequestDispatcher(
-                "/orders.jsp"
-            ).forward(
-                request,
-                response
-            );
+            request
+                .getRequestDispatcher(
+                    "/orders.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     private Long getLoginUserId(
         HttpSession session) {
@@ -83,10 +92,14 @@ public class UserOrderServlet
         }
 
         try {
+
             return new Long(
                 value.toString()
             );
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             return null;
         }
     }

@@ -21,15 +21,23 @@ public class ProductDao {
     private static final long EUICC_PREFIX =
         61082820050501L;
 
-    public void addProduct(Product product)
+
+    public void addProduct(
+        Product product)
         throws SQLException {
 
-        Connection conn = null;
+        Connection conn =
+            null;
 
         try {
 
-            conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
+            conn =
+                DBUtil.getConnection();
+
+            conn.setAutoCommit(
+                false
+            );
+
 
             long productId =
                 generateProductId(
@@ -37,12 +45,16 @@ public class ProductDao {
                     product.getType()
                 );
 
-            product.setId(productId);
+            product.setId(
+                productId
+            );
+
 
             insertProduct(
                 conn,
                 product
             );
+
 
             if ("SIM_ESIM".equals(
                     product.getType())) {
@@ -63,6 +75,7 @@ public class ProductDao {
                 }
             }
 
+
             conn.commit();
 
         } catch (SQLException e) {
@@ -70,8 +83,11 @@ public class ProductDao {
             if (conn != null) {
 
                 try {
+
                     conn.rollback();
+
                 } catch (SQLException ex) {
+
                     ex.printStackTrace();
                 }
             }
@@ -83,19 +99,28 @@ public class ProductDao {
             if (conn != null) {
 
                 try {
-                    conn.setAutoCommit(true);
+
+                    conn.setAutoCommit(
+                        true
+                    );
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
 
                 try {
+
                     conn.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     private long generateProductId(
         Connection conn,
@@ -104,11 +129,19 @@ public class ProductDao {
 
         long prefix;
 
-        if ("EUICC".equals(productType)) {
-            prefix = EUICC_PREFIX;
+
+        if ("EUICC".equals(
+                productType)) {
+
+            prefix =
+                EUICC_PREFIX;
+
         } else {
-            prefix = SIM_PREFIX;
+
+            prefix =
+                SIM_PREFIX;
         }
+
 
         long minimum =
             prefix * 10000L;
@@ -116,8 +149,13 @@ public class ProductDao {
         long maximum =
             minimum + 9999L;
 
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+
+        PreparedStatement pstmt =
+            null;
+
+        ResultSet rs =
+            null;
+
 
         try {
 
@@ -127,32 +165,50 @@ public class ProductDao {
                 + "WHERE pduct_id >= ? "
                 + "AND pduct_id <= ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
 
-            pstmt.setLong(1, minimum);
-            pstmt.setLong(2, maximum);
+            pstmt.setLong(
+                1,
+                minimum
+            );
 
-            rs = pstmt.executeQuery();
+            pstmt.setLong(
+                2,
+                maximum
+            );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             if (rs.next()) {
 
                 long maxId =
-                    rs.getLong(1);
+                    rs.getLong(
+                        1
+                    );
+
 
                 if (!rs.wasNull()
                     && maxId >= minimum) {
 
-                    if (maxId >= maximum) {
+                    if (maxId
+                        >= maximum) {
 
                         throw new SQLException(
-                            "ÂïÜÂìÅÁºñÂè∑Â∑≤ÁªèËææÂà∞‰∏äÈôê„ÄÇ"
+                            "…Ã∆∑±‡∫≈“—æ≠¥ÔµΩ…œœﬁ°£"
                         );
                     }
 
                     return maxId + 1L;
                 }
             }
+
 
             return minimum + 1L;
 
@@ -161,29 +217,39 @@ public class ProductDao {
             if (rs != null) {
 
                 try {
+
                     rs.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
 
+
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     private void insertProduct(
         Connection conn,
         Product product)
         throws SQLException {
 
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
@@ -208,8 +274,12 @@ public class ProductDao {
                 + "NOW(), NOW()"
                 + ")";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setLong(
                 1,
@@ -228,25 +298,31 @@ public class ProductDao {
 
             pstmt.setString(
                 4,
-                product.getShortDescription()
+                product
+                .getShortDescription()
             );
 
             pstmt.setString(
                 5,
-                product.getDescription()
+                product
+                .getDescription()
             );
 
             pstmt.setString(
                 6,
-                product.getCoverImage()
+                product
+                .getCoverImage()
             );
 
             pstmt.setInt(
                 7,
-                product.getPurchasable()
+                product
+                .getPurchasable()
             );
 
-            if (product.getPrice() != null) {
+
+            if (product.getPrice()
+                != null) {
 
                 pstmt.setBigDecimal(
                     8,
@@ -261,11 +337,15 @@ public class ProductDao {
                 );
             }
 
-            if (product.getStock() != null) {
+
+            if (product.getStock()
+                != null) {
 
                 pstmt.setInt(
                     9,
-                    product.getStock().intValue()
+                    product
+                    .getStock()
+                    .intValue()
                 );
 
             } else {
@@ -275,6 +355,7 @@ public class ProductDao {
                     Types.INTEGER
                 );
             }
+
 
             pstmt.setString(
                 10,
@@ -288,8 +369,10 @@ public class ProductDao {
 
             pstmt.setInt(
                 12,
-                product.getDisplayOrder()
+                product
+                .getDisplayOrder()
             );
+
 
             pstmt.executeUpdate();
 
@@ -298,20 +381,26 @@ public class ProductDao {
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     private void insertSimProduct(
         Connection conn,
         SimProduct sim)
         throws SQLException {
 
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
@@ -327,8 +416,12 @@ public class ProductDao {
                 + "simprod_keepalive_guide"
                 + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setLong(
                 1,
@@ -370,6 +463,7 @@ public class ProductDao {
                 sim.getKeepaliveGuide()
             );
 
+
             pstmt.executeUpdate();
 
         } finally {
@@ -377,13 +471,17 @@ public class ProductDao {
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     public List<Product> findAll()
         throws SQLException {
@@ -391,13 +489,21 @@ public class ProductDao {
         List<Product> products =
             new ArrayList<Product>();
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        Connection conn =
+            null;
+
+        PreparedStatement pstmt =
+            null;
+
+        ResultSet rs =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 baseSelectSql()
@@ -405,17 +511,26 @@ public class ProductDao {
                 + "p.pduct_display_order ASC, "
                 + "p.pduct_id ASC";
 
-            pstmt =
-                conn.prepareStatement(sql);
 
-            rs = pstmt.executeQuery();
+            pstmt =
+                conn.prepareStatement(
+                    sql
+                );
+
+
+            rs =
+                pstmt.executeQuery();
+
 
             while (rs.next()) {
 
                 products.add(
-                    mapProduct(rs)
+                    mapProduct(
+                        rs
+                    )
                 );
             }
+
 
             return products;
 
@@ -429,34 +544,54 @@ public class ProductDao {
         }
     }
 
-    public Product findById(long productId)
+
+    public Product findById(
+        long productId)
         throws SQLException {
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        Connection conn =
+            null;
+
+        PreparedStatement pstmt =
+            null;
+
+        ResultSet rs =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 baseSelectSql()
                 + " WHERE p.pduct_id = ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
 
             pstmt.setLong(
                 1,
                 productId
             );
 
-            rs = pstmt.executeQuery();
+
+            rs =
+                pstmt.executeQuery();
+
 
             if (rs.next()) {
-                return mapProduct(rs);
+
+                return mapProduct(
+                    rs
+                );
             }
+
 
             return null;
 
@@ -470,21 +605,30 @@ public class ProductDao {
         }
     }
 
+
     public void updateProduct(
         Product product)
         throws SQLException {
 
-        Connection conn = null;
+        Connection conn =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
+            conn =
+                DBUtil.getConnection();
+
+            conn.setAutoCommit(
+                false
+            );
+
 
             updateProductMain(
                 conn,
                 product
             );
+
 
             if ("SIM_ESIM".equals(
                     product.getType())) {
@@ -492,23 +636,27 @@ public class ProductDao {
                 SimProduct sim =
                     product.getSimProduct();
 
+
                 if (sim == null) {
 
                     throw new SQLException(
-                        "SIM/eSIM ÂïÜÂìÅÁº∫Â∞ë SIM ‰∫ßÂìÅËµÑÊñô„ÄÇ"
+                        "SIM/eSIM …Ã∆∑»±…Ÿ SIM ≤˙∆∑◊ ¡œ°£"
                     );
                 }
+
 
                 sim.setProductId(
                     product.getId()
                 );
+
 
                 updateOrInsertSimProduct(
                     conn,
                     sim
                 );
 
-            } else if ("EUICC".equals(
+            } else if (
+                "EUICC".equals(
                     product.getType())) {
 
                 deleteSimProduct(
@@ -517,6 +665,7 @@ public class ProductDao {
                 );
             }
 
+
             conn.commit();
 
         } catch (SQLException e) {
@@ -524,8 +673,11 @@ public class ProductDao {
             if (conn != null) {
 
                 try {
+
                     conn.rollback();
+
                 } catch (SQLException ex) {
+
                     ex.printStackTrace();
                 }
             }
@@ -537,26 +689,37 @@ public class ProductDao {
             if (conn != null) {
 
                 try {
-                    conn.setAutoCommit(true);
+
+                    conn.setAutoCommit(
+                        true
+                    );
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
 
                 try {
+
                     conn.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     private void updateProductMain(
         Connection conn,
         Product product)
         throws SQLException {
 
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
@@ -576,8 +739,12 @@ public class ProductDao {
                 + "pduct_updated_at = NOW() "
                 + "WHERE pduct_id = ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setString(
                 1,
@@ -591,7 +758,8 @@ public class ProductDao {
 
             pstmt.setString(
                 3,
-                product.getShortDescription()
+                product
+                .getShortDescription()
             );
 
             pstmt.setString(
@@ -609,7 +777,9 @@ public class ProductDao {
                 product.getPurchasable()
             );
 
-            if (product.getPrice() != null) {
+
+            if (product.getPrice()
+                != null) {
 
                 pstmt.setBigDecimal(
                     7,
@@ -624,11 +794,15 @@ public class ProductDao {
                 );
             }
 
-            if (product.getStock() != null) {
+
+            if (product.getStock()
+                != null) {
 
                 pstmt.setInt(
                     8,
-                    product.getStock().intValue()
+                    product
+                    .getStock()
+                    .intValue()
                 );
 
             } else {
@@ -638,6 +812,7 @@ public class ProductDao {
                     Types.INTEGER
                 );
             }
+
 
             pstmt.setString(
                 9,
@@ -659,6 +834,7 @@ public class ProductDao {
                 product.getId()
             );
 
+
             pstmt.executeUpdate();
 
         } finally {
@@ -666,20 +842,33 @@ public class ProductDao {
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
+    /*
+     * ’‚¿Ô «±æ¥Œ–ﬁ∏ƒµƒπÿº¸°£
+     *
+     * ‘≠¿¥’‚¿Ô÷ª∏¸–¬«∞Àƒ∏ˆ◊÷∂Œ£¨
+     * µº÷¬πŸ∑Ωµÿ÷∑°¢…Í«ÎΩÃ≥Ã∫Õ±£∫≈Àµ√˜
+     * ‘⁄±‡º≠æ……Ã∆∑ ±”¿‘∂≤ªª·∏¸–¬°£
+     */
     private void updateOrInsertSimProduct(
         Connection conn,
         SimProduct sim)
         throws SQLException {
 
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
@@ -688,11 +877,18 @@ public class ProductDao {
                 + "simprod_form = ?, "
                 + "simprod_operator = ?, "
                 + "simprod_country_region = ?, "
-                + "simprod_realname_required = ? "
+                + "simprod_realname_required = ?, "
+                + "simprod_official_url = ?, "
+                + "simprod_application_guide = ?, "
+                + "simprod_keepalive_guide = ? "
                 + "WHERE simprod_pduct_id = ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
+
 
             pstmt.setString(
                 1,
@@ -714,16 +910,36 @@ public class ProductDao {
                 sim.getRealnameRequired()
             );
 
-            pstmt.setLong(
+            pstmt.setString(
                 5,
+                sim.getOfficialUrl()
+            );
+
+            pstmt.setString(
+                6,
+                sim.getApplicationGuide()
+            );
+
+            pstmt.setString(
+                7,
+                sim.getKeepaliveGuide()
+            );
+
+            pstmt.setLong(
+                8,
                 sim.getProductId()
             );
+
 
             int affected =
                 pstmt.executeUpdate();
 
+
             pstmt.close();
-            pstmt = null;
+
+            pstmt =
+                null;
+
 
             if (affected == 0) {
 
@@ -738,25 +954,35 @@ public class ProductDao {
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     public void updateStatus(
         long productId,
         String status)
         throws SQLException {
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+        Connection conn =
+            null;
+
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
+            conn =
+                DBUtil.getConnection();
+
 
             String sql =
                 "UPDATE product "
@@ -764,8 +990,11 @@ public class ProductDao {
                 + "pduct_updated_at = NOW() "
                 + "WHERE pduct_id = ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
 
             pstmt.setString(
                 1,
@@ -776,6 +1005,7 @@ public class ProductDao {
                 2,
                 productId
             );
+
 
             pstmt.executeUpdate();
 
@@ -789,35 +1019,52 @@ public class ProductDao {
         }
     }
 
-    public void deleteProduct(long productId)
+
+    public void deleteProduct(
+        long productId)
         throws SQLException {
 
-        Connection conn = null;
-        PreparedStatement productStmt = null;
+        Connection conn =
+            null;
+
+        PreparedStatement productStmt =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
+            conn =
+                DBUtil.getConnection();
+
+            conn.setAutoCommit(
+                false
+            );
+
 
             deleteSimProduct(
                 conn,
                 productId
             );
 
+
             String sql =
                 "DELETE FROM product "
                 + "WHERE pduct_id = ?";
 
+
             productStmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
 
             productStmt.setLong(
                 1,
                 productId
             );
 
+
             productStmt.executeUpdate();
+
 
             conn.commit();
 
@@ -826,8 +1073,11 @@ public class ProductDao {
             if (conn != null) {
 
                 try {
+
                     conn.rollback();
+
                 } catch (SQLException ex) {
+
                     ex.printStackTrace();
                 }
             }
@@ -836,32 +1086,43 @@ public class ProductDao {
 
         } finally {
 
-            if (productStmt != null) {
+            if (productStmt
+                != null) {
 
                 try {
+
                     productStmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
 
+
             if (conn != null) {
 
                 try {
+
                     conn.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
 
+
     private void deleteSimProduct(
         Connection conn,
         long productId)
         throws SQLException {
 
-        PreparedStatement pstmt = null;
+        PreparedStatement pstmt =
+            null;
+
 
         try {
 
@@ -869,13 +1130,17 @@ public class ProductDao {
                 "DELETE FROM sim_product "
                 + "WHERE simprod_pduct_id = ?";
 
+
             pstmt =
-                conn.prepareStatement(sql);
+                conn.prepareStatement(
+                    sql
+                );
 
             pstmt.setLong(
                 1,
                 productId
             );
+
 
             pstmt.executeUpdate();
 
@@ -884,13 +1149,17 @@ public class ProductDao {
             if (pstmt != null) {
 
                 try {
+
                     pstmt.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     public List<Product> findPublished(
         String productType,
@@ -902,44 +1171,61 @@ public class ProductDao {
         List<Product> products =
             new ArrayList<Product>();
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        Connection conn =
+            null;
+
+        PreparedStatement pstmt =
+            null;
+
+        ResultSet rs =
+            null;
+
 
         try {
 
-            conn = DBUtil.getConnection();
+            conn =
+                DBUtil.getConnection();
+
 
             StringBuffer sql =
                 new StringBuffer();
+
 
             sql.append(
                 baseSelectSql()
             );
 
+
             sql.append(
-                " WHERE p.pduct_status = 'PUBLISHED' "
+                " WHERE "
+                + "p.pduct_status = 'PUBLISHED' "
             );
+
 
             sql.append(
                 "AND p.pduct_type = ? "
             );
 
+
             List<Object> params =
                 new ArrayList<Object>();
+
 
             params.add(
                 productType
             );
 
+
             if ("SIM_ESIM".equals(
                     productType)) {
+
 
                 if (country != null
                     && country.length() > 0) {
 
                     sql.append(
-                        "AND s.simprod_country_region = ? "
+                        "AND "
+                        + "s.simprod_country_region = ? "
                     );
 
                     params.add(
@@ -947,13 +1233,15 @@ public class ProductDao {
                     );
                 }
 
+
                 if (form != null
                     && form.length() > 0) {
 
                     sql.append(
                         "AND ("
                         + "s.simprod_form = ? "
-                        + "OR s.simprod_form = 'BOTH'"
+                        + "OR "
+                        + "s.simprod_form = 'BOTH'"
                         + ") "
                     );
 
@@ -962,11 +1250,15 @@ public class ProductDao {
                     );
                 }
 
-                if ("0".equals(realname)
-                    || "1".equals(realname)) {
+
+                if ("0".equals(
+                        realname)
+                    || "1".equals(
+                        realname)) {
 
                     sql.append(
-                        "AND s.simprod_realname_required = ? "
+                        "AND "
+                        + "s.simprod_realname_required = ? "
                     );
 
                     params.add(
@@ -977,30 +1269,38 @@ public class ProductDao {
                 }
             }
 
+
             sql.append(
                 "ORDER BY "
                 + "p.pduct_display_order ASC, "
                 + "p.pduct_id ASC"
             );
 
+
             pstmt =
                 conn.prepareStatement(
                     sql.toString()
                 );
 
-            for (int i = 0;
-                 i < params.size();
-                 i++) {
+
+            for (
+                int i = 0;
+                i < params.size();
+                i++) {
 
                 Object value =
-                    params.get(i);
+                    params.get(
+                        i
+                    );
 
-                if (value instanceof Integer) {
+
+                if (value
+                    instanceof Integer) {
 
                     pstmt.setInt(
                         i + 1,
                         ((Integer) value)
-                            .intValue()
+                        .intValue()
                     );
 
                 } else {
@@ -1012,15 +1312,20 @@ public class ProductDao {
                 }
             }
 
+
             rs =
                 pstmt.executeQuery();
+
 
             while (rs.next()) {
 
                 products.add(
-                    mapProduct(rs)
+                    mapProduct(
+                        rs
+                    )
                 );
             }
+
 
             return products;
 
@@ -1033,6 +1338,7 @@ public class ProductDao {
             );
         }
     }
+
 
     private String baseSelectSql() {
 
@@ -1059,8 +1365,11 @@ public class ProductDao {
             + "s.simprod_keepalive_guide "
             + "FROM product p "
             + "LEFT JOIN sim_product s "
-            + "ON p.pduct_id = s.simprod_pduct_id ";
+            + "ON "
+            + "p.pduct_id = "
+            + "s.simprod_pduct_id ";
     }
+
 
     private Product mapProduct(
         ResultSet rs)
@@ -1068,6 +1377,7 @@ public class ProductDao {
 
         Product product =
             new Product();
+
 
         product.setId(
             rs.getLong(
@@ -1117,21 +1427,28 @@ public class ProductDao {
             )
         );
 
+
         int stock =
             rs.getInt(
                 "pduct_stock"
             );
 
+
         if (rs.wasNull()) {
 
-            product.setStock(null);
+            product.setStock(
+                null
+            );
 
         } else {
 
             product.setStock(
-                new Integer(stock)
+                new Integer(
+                    stock
+                )
             );
         }
+
 
         product.setStatus(
             rs.getString(
@@ -1151,11 +1468,13 @@ public class ProductDao {
             )
         );
 
+
         if ("SIM_ESIM".equals(
                 product.getType())) {
 
             SimProduct sim =
                 new SimProduct();
+
 
             sim.setProductId(
                 product.getId()
@@ -1203,8 +1522,12 @@ public class ProductDao {
                 )
             );
 
-            product.setSimProduct(sim);
+
+            product.setSimProduct(
+                sim
+            );
         }
+
 
         return product;
     }

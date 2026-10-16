@@ -22,31 +22,40 @@ public class AdminReviewServlet
     private SimReviewService reviewService =
         new SimReviewService();
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
         throws ServletException, IOException {
 
         try {
+
             List<SimReview> reviews =
-                reviewService.findAllReviews();
+                reviewService
+                .findAllReviews();
 
             request.setAttribute(
                 "reviews",
                 reviews
             );
 
-            request.getRequestDispatcher(
-                "/admin/reviews.jsp"
-            ).forward(
-                request,
-                response
-            );
+            request
+                .getRequestDispatcher(
+                    "/admin/reviews.jsp"
+                )
+                .forward(
+                    request,
+                    response
+                );
 
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
+
 
     protected void doPost(
         HttpServletRequest request,
@@ -66,7 +75,10 @@ public class AdminReviewServlet
             );
 
         try {
-            if ("delete".equals(action)) {
+
+            if ("delete".equals(
+                    action)) {
+
                 long reviewId =
                     Long.parseLong(
                         request.getParameter(
@@ -74,13 +86,14 @@ public class AdminReviewServlet
                         )
                     );
 
-                reviewService.deleteReview(
-                    reviewId
-                );
+                reviewService
+                    .deleteReview(
+                        reviewId
+                    );
 
                 session.setAttribute(
                     "adminReviewFlash",
-                    "ËØÑ‰ª∑Â∑≤Âà†Èô§„ÄÇ"
+                    "∆¿º€“—…æ≥˝°£"
                 );
             }
 
@@ -89,10 +102,13 @@ public class AdminReviewServlet
                 + "/admin/reviews"
             );
 
-        } catch (NumberFormatException e) {
+
+        } catch (
+            NumberFormatException e) {
+
             session.setAttribute(
                 "adminReviewFlash",
-                "ËØÑ‰ª∑ÁºñÂè∑‰∏çÊ≠£Á°Æ„ÄÇ"
+                "∆¿º€±‡∫≈≤ª’˝»∑°£"
             );
 
             response.sendRedirect(
@@ -100,7 +116,10 @@ public class AdminReviewServlet
                 + "/admin/reviews"
             );
 
-        } catch (IllegalArgumentException e) {
+
+        } catch (
+            IllegalArgumentException e) {
+
             session.setAttribute(
                 "adminReviewFlash",
                 e.getMessage()
@@ -111,8 +130,12 @@ public class AdminReviewServlet
                 + "/admin/reviews"
             );
 
+
         } catch (SQLException e) {
-            throw new ServletException(e);
+
+            throw new ServletException(
+                e
+            );
         }
     }
 }

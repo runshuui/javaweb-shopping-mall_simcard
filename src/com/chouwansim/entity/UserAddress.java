@@ -87,14 +87,31 @@ public class UserAddress {
     }
 
     public String getFullAddress() {
-        StringBuffer buffer = new StringBuffer();
-        appendLine(buffer, address1);
-        appendLine(buffer, address2);
-        appendLine(buffer, address3);
+
+        StringBuffer buffer =
+            new StringBuffer();
+
+        appendLine(
+            buffer,
+            address1
+        );
+
+        appendLine(
+            buffer,
+            address2
+        );
+
+        appendLine(
+            buffer,
+            address3
+        );
+
         return buffer.toString();
     }
 
-    public void setFullAddress(String value) {
+    public void setFullAddress(
+        String value) {
+
         address1 = "";
         address2 = "";
         address3 = "";
@@ -104,11 +121,19 @@ public class UserAddress {
         }
 
         String normalized =
-            value.replace("\r\n", "\n")
-                 .replace("\r", "\n");
+            value.replace(
+                "\r\n",
+                "\n"
+            ).replace(
+                "\r",
+                "\n"
+            );
 
         String[] lines =
-            normalized.split("\n", -1);
+            normalized.split(
+                "\n",
+                -1
+            );
 
         if (lines.length > 0) {
             address1 = lines[0];
@@ -119,17 +144,25 @@ public class UserAddress {
         }
 
         if (lines.length > 2) {
-            StringBuffer third = new StringBuffer();
 
-            for (int i = 2; i < lines.length; i++) {
+            StringBuffer third =
+                new StringBuffer();
+
+            for (int i = 2;
+                 i < lines.length;
+                 i++) {
+
                 if (third.length() > 0) {
                     third.append("\n");
                 }
 
-                third.append(lines[i]);
+                third.append(
+                    lines[i]
+                );
             }
 
-            address3 = third.toString();
+            address3 =
+                third.toString();
         }
     }
 
@@ -139,6 +172,7 @@ public class UserAddress {
 
         if (value == null
             || value.trim().length() == 0) {
+
             return;
         }
 
@@ -146,6 +180,8 @@ public class UserAddress {
             buffer.append("\n");
         }
 
-        buffer.append(value.trim());
+        buffer.append(
+            value.trim()
+        );
     }
 }

@@ -96,7 +96,7 @@ public class WikiService {
             if (existing == null) {
 
                 throw new IllegalArgumentException(
-                    "Wiki åˆ†ç±»ä¸å­˜åœ¨ã€‚"
+                    "Wiki ·ÖÀà²»´æÔÚ¡£"
                 );
             }
 
@@ -118,7 +118,7 @@ public class WikiService {
         if (category == null) {
 
             throw new IllegalArgumentException(
-                "Wiki åˆ†ç±»ä¸å­˜åœ¨ã€‚"
+                "Wiki ·ÖÀà²»´æÔÚ¡£"
             );
         }
 
@@ -126,7 +126,7 @@ public class WikiService {
                 categoryId)) {
 
             throw new IllegalArgumentException(
-                "è¯¥åˆ†ç±»ä¸‹ä»æœ‰æ–‡ç« ï¼Œè¯·å…ˆç§»åŠ¨æˆ–åˆ é™¤æ–‡ç« ã€‚"
+                "¸Ã·ÖÀàÏÂÈÔÓĞÎÄÕÂ£¬ÇëÏÈÒÆ¶¯»òÉ¾³ıÎÄÕÂ¡£"
             );
         }
 
@@ -151,7 +151,7 @@ public class WikiService {
         if (category == null) {
 
             throw new IllegalArgumentException(
-                "æ‰€å± Wiki åˆ†ç±»ä¸å­˜åœ¨ã€‚"
+                "ËùÊô Wiki ·ÖÀà²»´æÔÚ¡£"
             );
         }
 
@@ -171,7 +171,7 @@ public class WikiService {
             if (existing == null) {
 
                 throw new IllegalArgumentException(
-                    "Wiki æ–‡ç« ä¸å­˜åœ¨ã€‚"
+                    "Wiki ÎÄÕÂ²»´æÔÚ¡£"
                 );
             }
 
@@ -193,7 +193,7 @@ public class WikiService {
         if (article == null) {
 
             throw new IllegalArgumentException(
-                "Wiki æ–‡ç« ä¸å­˜åœ¨ã€‚"
+                "Wiki ÎÄÕÂ²»´æÔÚ¡£"
             );
         }
 
@@ -208,7 +208,7 @@ public class WikiService {
         if (category == null) {
 
             throw new IllegalArgumentException(
-                "åˆ†ç±»èµ„æ–™ä¸èƒ½ä¸ºç©ºã€‚"
+                "·ÖÀà×ÊÁÏ²»ÄÜÎª¿Õ¡£"
             );
         }
 
@@ -228,7 +228,7 @@ public class WikiService {
                 category.getName())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥åˆ†ç±»åç§°ã€‚"
+                "ÇëÊäÈë·ÖÀàÃû³Æ¡£"
             );
         }
 
@@ -236,7 +236,7 @@ public class WikiService {
             < 1) {
 
             throw new IllegalArgumentException(
-                "æ˜¾ç¤ºé¡ºåºå¿…é¡»ä» 1 å¼€å§‹ã€‚"
+                "ÏÔÊ¾Ë³Ğò±ØĞë´Ó 1 ¿ªÊ¼¡£"
             );
         }
 
@@ -246,7 +246,7 @@ public class WikiService {
             != WikiCategory.STATUS_DISABLED) {
 
             throw new IllegalArgumentException(
-                "åˆ†ç±»çŠ¶æ€ä¸æ­£ç¡®ã€‚"
+                "·ÖÀà×´Ì¬²»ÕıÈ·¡£"
             );
         }
     }
@@ -257,7 +257,7 @@ public class WikiService {
         if (article == null) {
 
             throw new IllegalArgumentException(
-                "æ–‡ç« èµ„æ–™ä¸èƒ½ä¸ºç©ºã€‚"
+                "ÎÄÕÂ×ÊÁÏ²»ÄÜÎª¿Õ¡£"
             );
         }
 
@@ -274,8 +274,8 @@ public class WikiService {
         );
 
         /*
-         * Markdown æ­£æ–‡åªå»æ‰é¦–å°¾ç©ºç™½ï¼Œ
-         * ä¸ä¿®æ”¹å†…éƒ¨æ¢è¡Œå’Œ Markdown ç»“æ„ã€‚
+         * Markdown ÕıÎÄÖ»È¥µôÊ×Î²¿Õ°×£¬
+         * ²»ĞŞ¸ÄÄÚ²¿»»ĞĞºÍ Markdown ½á¹¹¡£
          */
         if (article.getContent() == null) {
 
@@ -294,7 +294,7 @@ public class WikiService {
             <= 0) {
 
             throw new IllegalArgumentException(
-                "è¯·é€‰æ‹©æ–‡ç« åˆ†ç±»ã€‚"
+                "ÇëÑ¡ÔñÎÄÕÂ·ÖÀà¡£"
             );
         }
 
@@ -302,7 +302,7 @@ public class WikiService {
                 article.getTitle())) {
 
             throw new IllegalArgumentException(
-                "è¯·è¾“å…¥æ–‡ç« æ ‡é¢˜ã€‚"
+                "ÇëÊäÈëÎÄÕÂ±êÌâ¡£"
             );
         }
 
@@ -314,7 +314,7 @@ public class WikiService {
                 .equals(article.getStatus())) {
 
             throw new IllegalArgumentException(
-                "æ–‡ç« çŠ¶æ€ä¸æ­£ç¡®ã€‚"
+                "ÎÄÕÂ×´Ì¬²»ÕıÈ·¡£"
             );
         }
     }

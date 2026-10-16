@@ -25,6 +25,7 @@ public class UserAddressDao {
         ResultSet rs = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -40,18 +41,32 @@ public class UserAddressDao {
                 + "WHERE useracc_id = ? "
                 + "ORDER BY useraddr_slot ASC";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                addresses.add(mapAddress(rs));
+
+                addresses.add(
+                    mapAddress(rs)
+                );
             }
 
             return addresses;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -65,6 +80,7 @@ public class UserAddressDao {
         ResultSet rs = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -80,9 +96,18 @@ public class UserAddressDao {
                 + "WHERE useraddr_id = ? "
                 + "AND useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, addressId);
-            pstmt.setLong(2, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                addressId
+            );
+
+            pstmt.setLong(
+                2,
+                userId
+            );
 
             rs = pstmt.executeQuery();
 
@@ -93,7 +118,12 @@ public class UserAddressDao {
             return null;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -106,6 +136,7 @@ public class UserAddressDao {
         ResultSet rs = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -113,12 +144,20 @@ public class UserAddressDao {
                 + "FROM user_address "
                 + "WHERE useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                userId
+            );
+
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                int max = rs.getInt(1);
+
+                int max =
+                    rs.getInt(1);
 
                 if (!rs.wasNull()) {
                     return max + 1;
@@ -128,7 +167,12 @@ public class UserAddressDao {
             return 1;
 
         } finally {
-            DBUtil.close(rs, pstmt, conn);
+
+            DBUtil.close(
+                rs,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -140,6 +184,7 @@ public class UserAddressDao {
         PreparedStatement pstmt = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -154,19 +199,48 @@ public class UserAddressDao {
                 + "useraddr_updated_at"
                 + ") VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setLong(1, address.getUserId());
-            pstmt.setInt(2, address.getSlot());
-            pstmt.setString(3, address.getReceiverName());
-            pstmt.setString(4, address.getPhone());
-            pstmt.setString(5, address.getPostalCode());
-            pstmt.setString(6, address.getFullAddress());
+            pstmt.setLong(
+                1,
+                address.getUserId()
+            );
+
+            pstmt.setInt(
+                2,
+                address.getSlot()
+            );
+
+            pstmt.setString(
+                3,
+                address.getReceiverName()
+            );
+
+            pstmt.setString(
+                4,
+                address.getPhone()
+            );
+
+            pstmt.setString(
+                5,
+                address.getPostalCode()
+            );
+
+            pstmt.setString(
+                6,
+                address.getFullAddress()
+            );
 
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -178,6 +252,7 @@ public class UserAddressDao {
         PreparedStatement pstmt = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -190,19 +265,48 @@ public class UserAddressDao {
                 + "WHERE useraddr_id = ? "
                 + "AND useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt =
+                conn.prepareStatement(sql);
 
-            pstmt.setString(1, address.getReceiverName());
-            pstmt.setString(2, address.getPhone());
-            pstmt.setString(3, address.getPostalCode());
-            pstmt.setString(4, address.getFullAddress());
-            pstmt.setLong(5, address.getId());
-            pstmt.setLong(6, address.getUserId());
+            pstmt.setString(
+                1,
+                address.getReceiverName()
+            );
+
+            pstmt.setString(
+                2,
+                address.getPhone()
+            );
+
+            pstmt.setString(
+                3,
+                address.getPostalCode()
+            );
+
+            pstmt.setString(
+                4,
+                address.getFullAddress()
+            );
+
+            pstmt.setLong(
+                5,
+                address.getId()
+            );
+
+            pstmt.setLong(
+                6,
+                address.getUserId()
+            );
 
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -215,6 +319,7 @@ public class UserAddressDao {
         PreparedStatement pstmt = null;
 
         try {
+
             conn = DBUtil.getConnection();
 
             String sql =
@@ -222,14 +327,28 @@ public class UserAddressDao {
                 + "WHERE useraddr_id = ? "
                 + "AND useracc_id = ?";
 
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setLong(1, addressId);
-            pstmt.setLong(2, userId);
+            pstmt =
+                conn.prepareStatement(sql);
+
+            pstmt.setLong(
+                1,
+                addressId
+            );
+
+            pstmt.setLong(
+                2,
+                userId
+            );
 
             pstmt.executeUpdate();
 
         } finally {
-            DBUtil.close(null, pstmt, conn);
+
+            DBUtil.close(
+                null,
+                pstmt,
+                conn
+            );
         }
     }
 
@@ -237,22 +356,49 @@ public class UserAddressDao {
         ResultSet rs)
         throws SQLException {
 
-        UserAddress address = new UserAddress();
+        UserAddress address =
+            new UserAddress();
 
-        address.setId(rs.getLong("useraddr_id"));
-        address.setUserId(rs.getLong("useracc_id"));
-        address.setSlot(rs.getInt("useraddr_slot"));
+        address.setId(
+            rs.getLong(
+                "useraddr_id"
+            )
+        );
+
+        address.setUserId(
+            rs.getLong(
+                "useracc_id"
+            )
+        );
+
+        address.setSlot(
+            rs.getInt(
+                "useraddr_slot"
+            )
+        );
+
         address.setReceiverName(
-            rs.getString("useraddr_receiver_name")
+            rs.getString(
+                "useraddr_receiver_name"
+            )
         );
+
         address.setPhone(
-            rs.getString("useraddr_phone")
+            rs.getString(
+                "useraddr_phone"
+            )
         );
+
         address.setPostalCode(
-            rs.getString("useraddr_postal_code")
+            rs.getString(
+                "useraddr_postal_code"
+            )
         );
+
         address.setFullAddress(
-            rs.getString("useraddr_address")
+            rs.getString(
+                "useraddr_address"
+            )
         );
 
         return address;

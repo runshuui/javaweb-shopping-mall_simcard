@@ -13,6 +13,7 @@ public class LogoutServlet
 
     private static final long serialVersionUID = 1L;
 
+
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -23,6 +24,7 @@ public class LogoutServlet
             response
         );
     }
+
 
     protected void doPost(
         HttpServletRequest request,
@@ -35,6 +37,7 @@ public class LogoutServlet
         );
     }
 
+
     private void logout(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -43,9 +46,22 @@ public class LogoutServlet
         HttpSession session =
             request.getSession(false);
 
+
         if (session != null) {
+
+            /*
+             * 清除：
+             *
+             * loginUser
+             * loginUserId
+             * loginUserName
+             * loginUserRole
+             *
+             * 以及当前 Session 中其他临时数据。
+             */
             session.invalidate();
         }
+
 
         response.sendRedirect(
             request.getContextPath()

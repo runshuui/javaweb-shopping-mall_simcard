@@ -11,15 +11,22 @@ import java.util.Date;
 import java.util.List;
 
 import com.chouwansim.dao.OrderDao;
+import com.chouwansim.dao.UserCardDao;
+
 import com.chouwansim.entity.CartItem;
 import com.chouwansim.entity.OrderResult;
 import com.chouwansim.entity.UserAddress;
+import com.chouwansim.entity.UserCard;
+
 import com.chouwansim.util.DBUtil;
 
 public class OrderService {
 
     private OrderDao orderDao =
         new OrderDao();
+
+    private UserCardDao userCardDao =
+        new UserCardDao();
 
     public OrderResult createPaidOrder(
         long userId,
@@ -35,6 +42,7 @@ public class OrderService {
         Connection conn = null;
 
         try {
+
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
 
@@ -46,8 +54,9 @@ public class OrderService {
                 );
 
             if (address == null) {
+
                 throw new IllegalArgumentException(
-                    "æ”¶è´§åœ°å€ä¸å­˜åœ¨ã€‚"
+                    "ÊÕ»õµØÖ·²»´æÔÚ¡£"
                 );
             }
 
@@ -58,8 +67,9 @@ public class OrderService {
                 );
 
             if (items.size() == 0) {
+
                 throw new IllegalArgumentException(
-                    "è´­ç‰©è½¦ä¸ºç©ºã€‚"
+                    "¹ºÎï³µÎª¿Õ¡£"
                 );
             }
 
@@ -73,7 +83,9 @@ public class OrderService {
                 CartItem item =
                     items.get(i);
 
-                validateItem(item);
+                validateItem(
+                    item
+                );
 
                 total =
                     total.add(
@@ -112,6 +124,19 @@ public class OrderService {
                     item.getProductId(),
                     item.getQuantity()
                 );
+
+                /*
+                 * SIM / eSIM ÉÌÆ·Ö§¸¶³É¹¦ºó£¬
+                 * ×Ô¶¯Éú³ÉÓÃ»§³Ö¿¨¼ÇÂ¼¡£
+                 *
+                 * eUICC ²»Éú³É user_card¡£
+                 */
+                addPurchasedCards(
+                    conn,
+                    userId,
+                    orderNumber,
+                    item
+                );
             }
 
             orderDao.insertOrderAddress(
@@ -147,9 +172,11 @@ public class OrderService {
             result.setOrderId(
                 orderId
             );
+
             result.setOrderNumber(
                 orderNumber
             );
+
             result.setTotalAmount(
                 total
             );
@@ -157,15 +184,25 @@ public class OrderService {
             return result;
 
         } catch (SQLException e) {
-            rollback(conn);
+
+            rollback(
+                conn
+            );
+
             throw e;
 
         } catch (IllegalArgumentException e) {
-            rollback(conn);
+
+            rollback(
+                conn
+            );
+
             throw e;
 
         } finally {
+
             if (conn != null) {
+
                 try {
                     conn.setAutoCommit(true);
                 } catch (SQLException e) {
@@ -181,6 +218,93 @@ public class OrderService {
         }
     }
 
+    /**
+     * ½«¶©µ¥ÖĞµÄ SIM / eSIM ÉÌÆ·
+     * ×ª»»ÎªÊµ¼Ê³Ö¿¨¼ÇÂ¼¡£
+     *
+     * quantity = 2 Ê±Éú³ÉÁ½ÕÅ user_card¡£
+     */
+    private void addPurchasedCards(
+        Connection conn,
+        long userId,
+        String orderNumber,
+        CartItem item)
+        throws SQLException {
+
+        boolean simEsim =
+            userCardDao.isSimEsimProduct(
+                conn,
+                item.getProductId()
+            );
+
+        if (!simEsim) {
+            return;
+        }
+
+        for (int i = 1;
+             i <= item.getQuantity();
+             i++) {
+
+            UserCard card =
+                new UserCard();
+
+            card.setUserId(
+                userId
+            );
+
+            card.setProductId(
+                new Long(
+                    item.getProductId()
+                )
+            );
+
+            String nickname =
+                item.getProductName();
+
+            if (item.getQuantity() > 1) {
+
+                nickname =
+                    nickname
+                    + " #"
+                    + i;
+            }
+
+            card.setNickname(
+                nickname
+            );
+
+            card.setPhoneNumber(
+                null
+            );
+
+            card.setActivationDate(
+                null
+            );
+
+            /*
+             * Ö§¸¶³É¹¦²¢²»´ú±íÒÑ¾­¼¤»î£¬
+             * ËùÒÔÄ¬ÈÏ INACTIVE¡£
+             *
+             * ÓÃ»§ÕæÕı¼¤»îºó¿ÉÔÚ
+             * ¡°±à¼­¿¨Æ¬¡±ÖĞ¸ÄÎª ACTIVE¡£
+             */
+            card.setStatus(
+                UserCard.STATUS_INACTIVE
+            );
+
+            card.setNote(
+                "ÓÉ¶©µ¥ "
+                + orderNumber
+                + " ×Ô¶¯Ìí¼Ó¡£"
+            );
+
+            userCardDao.insert(
+                conn,
+                card
+            );
+        }
+    }
+
     private void validateItem(
         CartItem item) {
 
@@ -188,31 +312,35 @@ public class OrderService {
                 item.getProductStatus())) {
 
             throw new IllegalArgumentException(
-                "è´­ç‰©è½¦ä¸­å­˜åœ¨å·²ä¸‹æ¶å•†å“ã€‚"
+                "¹ºÎï³µÖĞ´æÔÚÒÑÏÂ¼ÜÉÌÆ·¡£"
             );
         }
 
         if (item.getPurchasable() != 1) {
+
             throw new IllegalArgumentException(
-                "è´­ç‰©è½¦ä¸­å­˜åœ¨ä¸å¯è´­ä¹°å•†å“ã€‚"
+                "¹ºÎï³µÖĞ´æÔÚ²»¿É¹ºÂòÉÌÆ·¡£"
             );
         }
 
         if (item.getUnitPrice() == null) {
+
             throw new IllegalArgumentException(
-                "è´­ç‰©è½¦ä¸­å­˜åœ¨ä»·æ ¼å¼‚å¸¸å•†å“ã€‚"
+                "¹ºÎï³µÖĞ´æÔÚ¼Û¸ñÒì³£ÉÌÆ·¡£"
             );
         }
 
         if (item.getQuantity() <= 0) {
+
             throw new IllegalArgumentException(
-                "å•†å“æ•°é‡ä¸æ­£ç¡®ã€‚"
+                "ÉÌÆ·ÊıÁ¿²»ÕıÈ·¡£"
             );
         }
 
         if (item.getQuantity() > 20) {
+
             throw new IllegalArgumentException(
-                "å•ä¸ªå•†å“ä¸€æ¬¡æœ€å¤šè´­ä¹° 20 ä»¶ã€‚"
+                "µ¥¸öÉÌÆ·Ò»´Î×î¶à¹ºÂò 20 ¼ş¡£"
             );
         }
 
@@ -221,7 +349,7 @@ public class OrderService {
                < item.getQuantity()) {
 
             throw new IllegalArgumentException(
-                "å•†å“åº“å­˜ä¸è¶³ï¼Œè¯·é‡æ–°ç¡®è®¤è´­ç‰©è½¦ã€‚"
+                "ÉÌÆ·¿â´æ²»×ã£¬ÇëÖØĞÂÈ·ÈÏ¹ºÎï³µ¡£"
             );
         }
     }
@@ -230,20 +358,23 @@ public class OrderService {
         String method) {
 
         if ("ALIPAY".equals(method)) {
+
             return "ALIPAY";
         }
 
         if ("DEBIT_CARD".equals(method)
             || "CREDIT_CARD".equals(method)) {
+
             return "BANK_CARD";
         }
 
         if ("USDT".equals(method)) {
+
             return "MOCK";
         }
 
         throw new IllegalArgumentException(
-            "æ”¯ä»˜æ–¹å¼ä¸å¯ç”¨ã€‚"
+            "Ö§¸¶·½Ê½²»¿ÉÓÃ¡£"
         );
     }
 
@@ -256,9 +387,12 @@ public class OrderService {
             );
 
         String user =
-            String.valueOf(userId);
+            String.valueOf(
+                userId
+            );
 
         if (user.length() > 4) {
+
             user =
                 user.substring(
                     user.length() - 4
@@ -287,6 +421,7 @@ public class OrderService {
         Connection conn) {
 
         if (conn != null) {
+
             try {
                 conn.rollback();
             } catch (SQLException e) {

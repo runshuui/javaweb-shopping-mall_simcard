@@ -11,11 +11,16 @@ public class ProductService {
     private ProductDao productDao =
         new ProductDao();
 
-    public void addProduct(Product product)
+
+    public void addProduct(
+        Product product)
         throws SQLException {
 
-        productDao.addProduct(product);
+        productDao.addProduct(
+            product
+        );
     }
+
 
     public List<Product> findAll()
         throws SQLException {
@@ -23,17 +28,26 @@ public class ProductService {
         return productDao.findAll();
     }
 
-    public Product findById(long productId)
+
+    public Product findById(
+        long productId)
         throws SQLException {
 
-        return productDao.findById(productId);
+        return productDao.findById(
+            productId
+        );
     }
 
-    public void updateProduct(Product product)
+
+    public void updateProduct(
+        Product product)
         throws SQLException {
 
-        productDao.updateProduct(product);
+        productDao.updateProduct(
+            product
+        );
     }
+
 
     public void updateStatus(
         long productId,
@@ -45,9 +59,10 @@ public class ProductService {
             && !"ARCHIVED".equals(status)) {
 
             throw new IllegalArgumentException(
-                "ÂïÜÂìÅÁä∂ÊÄÅ‰∏çÊ≠£Á°Æ„ÄÇ"
+                "…Ã∆∑◊¥Ã¨≤ª’˝»∑°£"
             );
         }
+
 
         productDao.updateStatus(
             productId,
@@ -55,11 +70,16 @@ public class ProductService {
         );
     }
 
-    public void deleteProduct(long productId)
+
+    public void deleteProduct(
+        long productId)
         throws SQLException {
 
-        productDao.deleteProduct(productId);
+        productDao.deleteProduct(
+            productId
+        );
     }
+
 
     public List<Product> findPublished(
         String productType,
