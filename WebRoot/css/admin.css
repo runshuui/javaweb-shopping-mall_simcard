@@ -1,0 +1,509 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    background-color: #ffffff;
+
+    color: #243447;
+}
+
+
+a {
+    color: inherit;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   整体后台
+   ========================================= */
+
+.admin-shell {
+    width: 94%;
+    max-width: 1380px;
+
+    margin: 35px auto;
+
+    background-color: #ffffff;
+}
+
+
+
+/* =========================================
+   顶部
+   ========================================= */
+
+.admin-header {
+    height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    background-color: #405a70;
+}
+
+
+.admin-title {
+    padding-left: 35px;
+
+    color: #ffffff;
+
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+
+/* =========================================
+   主体
+   ========================================= */
+
+.admin-body {
+    display: flex;
+
+    min-height: 650px;
+}
+
+
+
+/* =========================================
+   左侧导航
+   ========================================= */
+
+.admin-sidebar {
+    width: 220px;
+
+    padding-top: 20px;
+
+    background-color: #eef3f7;
+}
+
+
+.admin-menu {
+    display: block;
+
+    box-sizing: border-box;
+
+    width: 100%;
+
+    padding: 15px 25px;
+
+    font-size: 15px;
+
+    color: #435363;
+
+    border-left: 4px solid transparent;
+}
+
+
+.admin-menu:hover {
+    background-color: #e2edf4;
+}
+
+
+.admin-menu.active {
+    background-color: #ffffff;
+
+    border-left: 4px solid #b7d7e8;
+
+    font-weight: bold;
+
+    color: #243447;
+}
+
+
+
+/* =========================================
+   右侧
+   ========================================= */
+
+.admin-main {
+    flex: 1;
+
+    padding: 32px;
+
+    background-color: #f6f8fb;
+}
+
+
+
+/* =========================================
+   标题区域
+   ========================================= */
+
+.content-header {
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.content-header h1 {
+    margin: 0;
+
+    font-size: 24px;
+
+    color: #243447;
+}
+
+
+.add-button {
+    margin-left: auto;
+
+    padding: 10px 26px;
+
+    border: 1px solid #9fc7dc;
+
+    border-radius: 5px;
+
+    background-color: #b7d7e8;
+
+    color: #243447;
+
+    font-size: 14px;
+}
+
+
+.add-button:hover {
+    background-color: #a9cfe2;
+}
+
+
+
+/* =========================================
+   表格
+   ========================================= */
+
+.table-panel {
+    overflow-x: auto;
+
+    border: 1px solid #dfe4e8;
+
+    background-color: #ffffff;
+}
+
+
+.product-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+.product-table th {
+    padding: 14px 16px;
+
+    text-align: left;
+
+    background-color: #e8f4f9;
+
+    color: #435363;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.product-table td {
+    padding: 15px 16px;
+
+    border-top: 1px solid #e8e8e8;
+
+    color: #566574;
+
+    font-size: 14px;
+}
+
+
+.product-table tbody tr:hover {
+    background-color: #fafcfd;
+}
+
+
+
+/* =========================================
+   状态
+   ========================================= */
+
+.status-published {
+    color: #548577;
+}
+
+
+.status-draft {
+    color: #9a7d55;
+}
+
+
+
+/* =========================================
+   操作
+   ========================================= */
+
+.action-link {
+    margin-right: 15px;
+
+    color: #537995;
+}
+
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+
+.delete-link {
+    color: #b66c77;
+}
+
+
+
+/* =========================================
+   表单页
+   ========================================= */
+
+.form-panel {
+    padding: 28px;
+
+    border: 1px solid #dfe4e8;
+
+    background-color: #ffffff;
+}
+
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+
+.form-section-title {
+    margin-bottom: 18px;
+
+    padding-bottom: 8px;
+
+    border-bottom: 1px solid #e7eaed;
+
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+.form-row {
+    display: flex;
+
+    gap: 22px;
+
+    margin-bottom: 18px;
+}
+
+
+.form-group {
+    flex: 1;
+}
+
+
+.form-group.full {
+    width: 100%;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    color: #485968;
+}
+
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    box-sizing: border-box;
+
+    width: 100%;
+
+    padding: 9px 10px;
+
+    border: 1px solid #ccd3d8;
+
+    border-radius: 4px;
+
+    background-color: #ffffff;
+
+    color: #243447;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+}
+
+
+.form-group textarea {
+    min-height: 90px;
+
+    resize: vertical;
+}
+
+
+.form-actions {
+    padding-top: 20px;
+
+    border-top: 1px solid #e7eaed;
+
+    text-align: right;
+}
+
+
+.save-button {
+    padding: 10px 30px;
+
+    border: 1px solid #9fc7dc;
+
+    border-radius: 4px;
+
+    background-color: #b7d7e8;
+
+    color: #243447;
+
+    cursor: pointer;
+}
+
+
+.cancel-button {
+    display: inline-block;
+
+    margin-right: 12px;
+
+    padding: 9px 25px;
+
+    border: 1px solid #d2d7da;
+
+    border-radius: 4px;
+
+    background-color: #ffffff;
+
+    color: #566574;
+}
+
+
+
+/* =========================================
+   小屏幕
+   ========================================= */
+
+@media screen and (max-width: 800px) {
+
+    .admin-shell {
+        width: 100%;
+
+        margin: 0;
+    }
+
+
+    .admin-body {
+        display: block;
+    }
+
+
+    .admin-sidebar {
+        width: 100%;
+
+        display: flex;
+
+        overflow-x: auto;
+
+        padding-top: 0;
+    }
+
+
+    .admin-menu {
+        width: auto;
+
+        min-width: 120px;
+
+        border-left: 0;
+
+        border-bottom: 3px solid transparent;
+
+        text-align: center;
+    }
+
+
+    .admin-menu.active {
+        border-left: 0;
+
+        border-bottom: 3px solid #b7d7e8;
+    }
+
+
+    .admin-main {
+        padding: 20px;
+    }
+
+
+    .form-row {
+        display: block;
+    }
+
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+}
+
+/* =========================================
+   后台表格操作按钮
+   ========================================= */
+
+.table-action-button {
+    padding: 0;
+
+    margin-right: 14px;
+
+    border: none;
+
+    background: none;
+
+    color: #537995;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+.table-action-button:hover {
+    text-decoration: underline;
+}
+
+
+.delete-button {
+    color: #b66c77;
+}
