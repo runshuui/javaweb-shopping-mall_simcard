@@ -1,191 +1,304 @@
-<!-- 登录 -->
-<servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.LoginServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
-</servlet-mapping>
-
-<!-- 管理员商品管理 -->
-<servlet>
-    <servlet-name>AdminProductServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.AdminProductServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>AdminProductServlet</servlet-name>
-    <url-pattern>/admin/product</url-pattern>
-</servlet-mapping>
-
-<!-- 商城商品列表 -->
-<servlet>
-    <servlet-name>StoreProductServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.StoreProductServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>StoreProductServlet</servlet-name>
-    <url-pattern>/store</url-pattern>
-</servlet-mapping>
-
-<!-- 商品详情 -->
-<servlet>
-    <servlet-name>ProductDetailServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.ProductDetailServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>ProductDetailServlet</servlet-name>
-    <url-pattern>/product</url-pattern>
-</servlet-mapping>
-
-<!-- 购物车 -->
-<servlet>
-    <servlet-name>CartServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.CartServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>CartServlet</servlet-name>
-    <url-pattern>/cart</url-pattern>
-</servlet-mapping>
-
-<!-- 收货地址 -->
-<servlet>
-    <servlet-name>UserAddressServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.UserAddressServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>UserAddressServlet</servlet-name>
-    <url-pattern>/address</url-pattern>
-</servlet-mapping>
-
-<!-- 结算 -->
-<servlet>
-    <servlet-name>CheckoutServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.CheckoutServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>CheckoutServlet</servlet-name>
-    <url-pattern>/checkout</url-pattern>
-</servlet-mapping>
-
-<!-- 支付完成 / 创建订单 -->
-<servlet>
-    <servlet-name>OrderPaymentServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.OrderPaymentServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>OrderPaymentServlet</servlet-name>
-    <url-pattern>/order/pay</url-pattern>
-</servlet-mapping>
-
-<!-- 我的订单 -->
-<servlet>
-    <servlet-name>UserOrderServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.UserOrderServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>UserOrderServlet</servlet-name>
-    <url-pattern>/orders</url-pattern>
-</servlet-mapping>
-
-<!-- 用户订单详情 -->
-<servlet>
-    <servlet-name>OrderDetailServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.OrderDetailServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>OrderDetailServlet</servlet-name>
-    <url-pattern>/order/detail</url-pattern>
-</servlet-mapping>
-
-<!-- 管理员订单与物流 -->
-<servlet>
-    <servlet-name>AdminOrderServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.AdminOrderServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>AdminOrderServlet</servlet-name>
-    <url-pattern>/admin/orders</url-pattern>
-</servlet-mapping>
-
-<!-- 用户中心 -->
-<servlet>
-    <servlet-name>UserCenterServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.UserCenterServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>UserCenterServlet</servlet-name>
-    <url-pattern>/user-center</url-pattern>
-</servlet-mapping>
-
-<!-- 退出登录 -->
-<servlet>
-    <servlet-name>LogoutServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.LogoutServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>LogoutServlet</servlet-name>
-    <url-pattern>/logout</url-pattern>
-</servlet-mapping>
-
-<!-- 我的评价 -->
-<servlet>
-    <servlet-name>UserReviewServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.UserReviewServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>UserReviewServlet</servlet-name>
-    <url-pattern>/reviews</url-pattern>
-</servlet-mapping>
-
-<!-- 管理员评价管理 -->
-<servlet>
-    <servlet-name>AdminReviewServlet</servlet-name>
-    <servlet-class>
-        com.chouwansim.servlet.AdminReviewServlet
-    </servlet-class>
-</servlet>
-<servlet-mapping>
-    <servlet-name>AdminReviewServlet</servlet-name>
-    <url-pattern>/admin/reviews</url-pattern>
-</servlet-mapping>
-
-<!-- 管理员权限过滤器 -->
-<filter>
-    <filter-name>AdminFilter</filter-name>
-    <filter-class>
-        com.chouwansim.filter.AdminFilter
-    </filter-class>
-</filter>
-<filter-mapping>
-    <filter-name>AdminFilter</filter-name>
-    <url-pattern>/admin/*</url-pattern>
-</filter-mapping>
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <context-param>
+  <description>Flag whether the report resources can only be accessed under the working folder. Defaults to false</description>
+  <param-name>WORKING_FOLDER_ACCESS_ONLY</param-name>
+  <param-value>false</param-value>
+ </context-param>
+ <context-param>
+  <description>Temporary document files directory. Defaults to ${Context Root}/documents</description>
+  <param-name>BIRT_VIEWER_DOCUMENT_FOLDER</param-name>
+  <param-value>WEB-INF/report-engine/documents</param-value>
+ </context-param>
+ <context-param>
+  <description>Flag whether to allow server-side printing. Possible values are ON and OFF. Defaults to ON</description>
+  <param-name>BIRT_VIEWER_PRINT_SERVERSIDE</param-name>
+  <param-value>ON</param-value>
+ </context-param>
+ <context-param>
+  <description>Memory size in MB for creating a cube.</description>
+  <param-name>BIRT_VIEWER_CUBE_MEMORY_SIZE</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Directory where to store all the birt report script libraries (JARs).. Defaults to ${Context Root}/scriptlib</description>
+  <param-name>BIRT_VIEWER_SCRIPTLIB_DIR</param-name>
+  <param-value>WEB-INF/report-engine/scriptlib</param-value>
+ </context-param>
+ <context-param>
+  <description>Temporary images/charts directory. Defaults to ${Context Root}/report/images</description>
+  <param-name>BIRT_VIEWER_IMAGE_DIR</param-name>
+  <param-value>WEB-INF/report-engine/images</param-value>
+ </context-param>
+ <context-param>
+  <description>BIRT viewer extended configuration file</description>
+  <param-name>BIRT_VIEWER_CONFIG_FILE</param-name>
+  <param-value>WEB-INF/viewer.properties</param-value>
+ </context-param>
+ <context-param>
+  <description>Preview report rows limit. An empty value means no limit.</description>
+  <param-name>BIRT_VIEWER_MAX_ROWS</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Max cube fetch rows levels limit for report preview (Only used when previewing a report design file using the preview pattern). Defaults to return all levels</description>
+  <param-name>BIRT_VIEWER_MAX_CUBE_ROWLEVELS</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Default locale setting</description>
+  <param-name>BIRT_VIEWER_LOCALE</param-name>
+  <param-value>en-US</param-value>
+ </context-param>
+ <context-param>
+  <description>Max cube fetch columns levels limit for report preview (Only used when previewing a report design file using the preview pattern). Defaults to return all levels</description>
+  <param-name>BIRT_VIEWER_MAX_CUBE_COLUMNLEVELS</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Report resources(design files or document files) directory for preview. Defaults to ${Context Root}</description>
+  <param-name>BIRT_VIEWER_WORKING_FOLDER</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Report Engine logs directory. Default to ${Context Root}/logs</description>
+  <param-name>BIRT_VIEWER_LOG_DIR</param-name>
+  <param-value>WEB-INF/report-engine/logs</param-value>
+ </context-param>
+ <context-param>
+  <description>Resource location directory (library files, images files or others). Defaults to ${Context Root}</description>
+  <param-name>BIRT_RESOURCE_PATH</param-name>
+  <param-value/>
+ </context-param>
+ <context-param>
+  <description>Flag whether to force browser-optimized HTML output. Defaults to true</description>
+  <param-name>HTML_ENABLE_AGENTSTYLE_ENGINE</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <description>Report engine log level. (ALL|SEVERE|WARNING|INFO|CONFIG|FINE|FINER|FINEST|OFF)</description>
+  <param-name>BIRT_VIEWER_LOG_LEVEL</param-name>
+  <param-value>WARNING</param-value>
+ </context-param>
+ <filter>
+  <filter-name>AdminFilter</filter-name>
+  <filter-class>com.chouwansim.filter.AdminFilter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>AdminFilter</filter-name>
+  <url-pattern>/admin/*</url-pattern>
+ </filter-mapping>
+ <listener>
+  <listener-class>org.eclipse.birt.report.listener.ViewerHttpSessionListener</listener-class>
+ </listener>
+ <listener>
+  <listener-class>org.eclipse.birt.report.listener.ViewerServletContextListener</listener-class>
+ </listener>
+ <servlet>
+  <servlet-name>EngineServlet</servlet-name>
+  <servlet-class>org.eclipse.birt.report.servlet.BirtEngineServlet</servlet-class>
+  <load-on-startup>0</load-on-startup>
+ </servlet>
+ <servlet>
+  <servlet-name>ViewerServlet</servlet-name>
+  <servlet-class>org.eclipse.birt.report.servlet.ViewerServlet</servlet-class>
+  <load-on-startup>0</load-on-startup>
+ </servlet>
+ <servlet>
+  <servlet-name>AdminProductServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.AdminProductServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>LoginServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.LoginServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>StoreProductServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.StoreProductServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>ProductDetailServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.ProductDetailServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>CartServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.CartServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>CheckoutServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.CheckoutServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>UserAddressServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.UserAddressServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>OrderPaymentServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.OrderPaymentServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>UserOrderServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.UserOrderServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>OrderDetailServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.OrderDetailServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>AdminOrderServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.AdminOrderServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>UserCenterServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.UserCenterServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>LogoutServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.LogoutServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>UserReviewServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.UserReviewServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>AdminReviewServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.AdminReviewServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>UserCardServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.UserCardServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>WikiServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.WikiServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>WikiArticleServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.WikiArticleServlet</servlet-class>
+ </servlet>
+ <servlet>
+  <servlet-name>AdminWikiServlet</servlet-name>
+  <servlet-class>com.chouwansim.servlet.AdminWikiServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>ViewerServlet</servlet-name>
+  <url-pattern>/frameset</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/document</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/download</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/parameter</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/extract</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>ViewerServlet</servlet-name>
+  <url-pattern>/run</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/preview</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>EngineServlet</servlet-name>
+  <url-pattern>/output</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AdminProductServlet</servlet-name>
+  <url-pattern>/admin/product</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>LoginServlet</servlet-name>
+  <url-pattern>/login</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>StoreProductServlet</servlet-name>
+  <url-pattern>/store</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>ProductDetailServlet</servlet-name>
+  <url-pattern>/product</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>CartServlet</servlet-name>
+  <url-pattern>/cart</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UserAddressServlet</servlet-name>
+  <url-pattern>/address</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>CheckoutServlet</servlet-name>
+  <url-pattern>/checkout</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>OrderPaymentServlet</servlet-name>
+  <url-pattern>/order/pay</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UserOrderServlet</servlet-name>
+  <url-pattern>/orders</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>OrderDetailServlet</servlet-name>
+  <url-pattern>/order/detail</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AdminOrderServlet</servlet-name>
+  <url-pattern>/admin/orders</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UserCenterServlet</servlet-name>
+  <url-pattern>/user-center</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>LogoutServlet</servlet-name>
+  <url-pattern>/logout</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UserReviewServlet</servlet-name>
+  <url-pattern>/reviews</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AdminReviewServlet</servlet-name>
+  <url-pattern>/admin/reviews</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>UserCardServlet</servlet-name>
+  <url-pattern>/my-cards</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>WikiServlet</servlet-name>
+  <url-pattern>/wiki</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>WikiArticleServlet</servlet-name>
+  <url-pattern>/wiki/article</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>AdminWikiServlet</servlet-name>
+  <url-pattern>/admin/wiki</url-pattern>
+ </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>index.jsp</welcome-file>
+ </welcome-file-list>
+ <jsp-config>
+  <taglib>
+   <taglib-uri>/birt.tld</taglib-uri>
+   <taglib-location>/WEB-INF/tlds/birt.tld</taglib-location>
+  </taglib>
+ </jsp-config>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>
