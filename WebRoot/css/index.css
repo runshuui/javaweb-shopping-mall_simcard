@@ -1,0 +1,904 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+    background-color: #ffffff;
+    color: #243447;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.page-shell {
+    width: 94%;
+    max-width: 1420px;
+    margin: 28px auto 0 auto;
+    background-color: #ffffff;
+}
+
+
+/* =========================================================
+   顶部
+   ========================================================= */
+
+.top-header {
+    height: 76px;
+    background-color: #b7d7e8;
+    display: flex;
+    align-items: center;
+}
+
+.site-title {
+    padding-left: 36px;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.site-title a {
+    color: #243447;
+}
+
+.top-menu {
+    margin-left: auto;
+    padding-right: 8%;
+
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/*
+ * 这里不能再写：
+ *
+ * .top-menu a
+ *
+ * 因为那样会同时选中用户下拉菜单内部
+ * 的所有 a 标签，
+ * 导致下拉菜单项目整体向右偏移，
+ * 甚至超出菜单。
+ */
+.top-menu > a,
+.top-menu >
+.user-menu-wrapper >
+.user-menu-trigger {
+    margin: 0;
+    font-size: 17px;
+    color: #243447;
+}
+
+.top-menu > a:hover,
+.top-menu >
+.user-menu-wrapper >
+.user-menu-trigger:hover {
+    text-decoration: underline;
+}
+
+.top-menu .top-active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   页面主体
+   ========================================================= */
+
+.page-body {
+    display: flex;
+    min-height: 740px;
+}
+
+.side-nav {
+    width: 210px;
+    flex-shrink: 0;
+    padding-top: 28px;
+    background-color: #ffffff;
+}
+
+.side-item {
+    display: block;
+    box-sizing: border-box;
+    width: 176px;
+    height: 50px;
+    margin-left: 16px;
+    margin-bottom: 10px;
+    padding-left: 22px;
+
+    line-height: 50px;
+    font-size: 17px;
+    color: #243447;
+}
+
+.side-item:hover {
+    background-color: #f1f5f8;
+}
+
+.side-item.active {
+    background-color: #e2f0f7;
+    font-weight: bold;
+}
+
+.shop-main {
+    flex: 1;
+    min-width: 0;
+    padding: 28px 32px 45px 32px;
+    background-color: #f6f8fb;
+}
+
+
+/* =========================================================
+   选卡器
+   Windows 10 式扁平小横条
+   ========================================================= */
+
+.selector-box {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 58px;
+    padding: 9px 12px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #d4dce2;
+    border-radius: 0;
+
+    background-color: #ffffff;
+}
+
+.selector-title {
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    margin: 0 14px 0 0;
+    padding: 0 15px 0 4px;
+
+    border-right: 1px solid #d9e0e5;
+
+    font-size: 15px;
+    line-height: 36px;
+    font-weight: bold;
+    color: #243447;
+
+    white-space: nowrap;
+}
+
+.selector-row {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.selector-button {
+    box-sizing: border-box;
+    flex: 1 1 145px;
+    min-width: 120px;
+
+    height: 36px;
+    padding: 0 10px;
+
+    border: 1px solid #cbd4da;
+    border-radius: 0;
+
+    background-color: #ffffff;
+    color: #4e5f6e;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+    outline: none;
+}
+
+.selector-button:hover {
+    border-color: #8cb9ce;
+    background-color: #f7fbfd;
+}
+
+.selector-button:focus {
+    border-color: #6fa9c4;
+    background-color: #ffffff;
+}
+
+.filter-submit {
+    box-sizing: border-box;
+    flex-shrink: 0;
+
+    height: 36px;
+    padding: 0 20px;
+
+    border: 1px solid #83b2ca;
+    border-radius: 0;
+
+    background-color: #b7d7e8;
+    color: #243447;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.filter-submit:hover {
+    background-color: #a8cfe2;
+}
+
+
+/* =========================================================
+   商品网格
+   ========================================================= */
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    column-gap: 20px;
+    row-gap: 18px;
+
+    margin-top: 22px;
+}
+
+.product-card-link {
+    display: block;
+    min-width: 0;
+
+    color: inherit;
+    text-decoration: none;
+}
+
+.product-card {
+    box-sizing: border-box;
+
+    width: 100%;
+    min-height: 154px;
+    padding: 12px;
+
+    display: flex;
+    align-items: stretch;
+
+    border: 1px solid #d5dde3;
+    border-radius: 0;
+
+    background-color: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.12s ease,
+        background-color 0.12s ease;
+}
+
+.product-card:hover {
+    border-color: #86b8cf;
+    background-color: #fbfdfe;
+}
+
+
+/* =========================================================
+   商品图片
+
+   商品详情页：
+   190px × 160px
+
+   比例：
+   19 : 16
+
+   首页保持完全相同比例。
+   ========================================================= */
+
+.product-image {
+    width: 152px;
+    height: 128px;
+
+    flex: 0 0 152px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background-color: #eef3f8;
+    color: #99a5af;
+
+    font-size: 13px;
+}
+
+.product-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.product-image-placeholder {
+    color: #99a5af;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   商品文字区域
+   ========================================================= */
+
+.product-info {
+    box-sizing: border-box;
+
+    flex: 1;
+    min-width: 0;
+    height: 128px;
+
+    padding-left: 14px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    width: 100%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 16px;
+    line-height: 23px;
+
+    font-weight: bold;
+    color: #243447;
+}
+
+.product-meta {
+    margin-top: 5px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 12px;
+    line-height: 18px;
+
+    color: #68768a;
+}
+
+.product-description {
+    max-height: 36px;
+
+    white-space: normal;
+    line-height: 18px;
+    overflow: hidden;
+}
+
+.product-bottom {
+    width: 100%;
+    min-width: 0;
+
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+.product-score {
+    flex-shrink: 0;
+
+    color: #b35c7f;
+
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.product-price {
+    min-width: 0;
+    margin-left: auto;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #c95882;
+
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: bold;
+
+    text-align: right;
+}
+
+.product-empty {
+    grid-column: 1 / -1;
+
+    padding: 60px;
+
+    text-align: center;
+
+    color: #8793a0;
+}
+
+
+/* =========================================================
+   其他 index.css 共用页面
+   ========================================================= */
+
+.standalone-main {
+    min-height: 650px;
+    padding: 35px;
+    background-color: #f6f8fb;
+}
+
+.content-panel {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 32px;
+
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+}
+
+.content-panel h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+
+    font-size: 24px;
+    color: #243447;
+}
+
+.content-description {
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    color: #68768a;
+    font-size: 14px;
+}
+
+.empty-state {
+    padding: 80px 20px;
+
+    text-align: center;
+
+    border: 1px dashed #cccccc;
+
+    background-color: #fafbfd;
+}
+
+.empty-title {
+    font-size: 21px;
+    font-weight: bold;
+    color: #243447;
+}
+
+.empty-text {
+    margin-top: 12px;
+    margin-bottom: 25px;
+
+    color: #7d8996;
+
+    line-height: 1.7;
+}
+
+.primary-link {
+    display: inline-block;
+
+    padding: 10px 24px;
+
+    border-radius: 4px;
+
+    background-color: #b7d7e8;
+    color: #243447;
+}
+
+.wiki-item {
+    display: block;
+
+    padding: 18px 20px;
+    margin-bottom: 12px;
+
+    border: 1px solid #e0e0e0;
+
+    background-color: #ffffff;
+}
+
+.wiki-item:hover {
+    background-color: #f3f8fb;
+}
+
+.wiki-item strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 17px;
+    color: #243447;
+}
+
+.wiki-item span {
+    font-size: 13px;
+    color: #758292;
+}
+
+.user-menu-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.user-menu-item {
+    box-sizing: border-box;
+
+    min-height: 110px;
+    padding: 24px;
+
+    border: 1px solid #dddddd;
+
+    background-color: #fafbfd;
+}
+
+.user-menu-item strong {
+    display: block;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+}
+
+.user-menu-item span {
+    color: #758292;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   用户悬停菜单
+
+   这一轮先保持现有结构。
+   后面再单独处理头像、
+   姓名+邮箱等 UI。
+   ========================================================= */
+
+.user-menu-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.user-menu-trigger {
+    display: block;
+}
+
+.user-dropdown {
+    display: none;
+
+    position: absolute;
+    z-index: 1000;
+
+    top: 100%;
+    right: 0;
+
+    width: 210px;
+
+    padding: 8px 0;
+
+    background-color: #ffffff;
+
+    border: 1px solid #dce4ea;
+
+    box-shadow:
+        0 7px 20px
+        rgba(
+            36,
+            52,
+            71,
+            0.14
+        );
+
+    text-align: left;
+}
+
+.user-menu-wrapper:hover
+.user-dropdown {
+    display: block;
+}
+
+.user-menu-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 100%;
+
+    height: 5px;
+}
+
+.user-dropdown-header {
+    padding: 12px 16px 11px 16px;
+
+    border-bottom:
+        1px solid #edf0f2;
+}
+
+.user-dropdown-name {
+    color: #243447;
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.user-dropdown-item {
+    display: block;
+
+    box-sizing: border-box;
+
+    width: 100%;
+
+    margin: 0;
+    padding: 11px 16px;
+
+    border: none;
+
+    background: #ffffff;
+    color: #435363;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    text-decoration: none;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.user-dropdown-item:hover {
+    background-color: #eef7fb;
+    text-decoration: none;
+}
+
+.user-dropdown-disabled {
+    color: #a0a8ae;
+    cursor: default;
+}
+
+.user-dropdown-disabled:hover {
+    background-color: #ffffff;
+}
+
+.dropdown-small {
+    float: right;
+
+    color: #b0b6bb;
+
+    font-size: 11px;
+}
+
+.user-dropdown-divider {
+    height: 1px;
+
+    margin: 6px 0;
+
+    background-color: #edf0f2;
+}
+
+.admin-dropdown-item {
+    color: #397b9d;
+}
+
+.logout-form {
+    margin: 0;
+    padding: 0;
+}
+
+.logout-dropdown-button {
+    color: #a34d6e;
+}
+
+
+/* =========================================================
+   高度较小的屏幕
+   ========================================================= */
+
+@media screen and (max-height: 850px) {
+
+    .page-shell {
+        margin-top: 16px;
+    }
+
+    .top-header {
+        height: 70px;
+    }
+
+    .shop-main {
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+
+    .product-grid {
+        margin-top: 18px;
+        row-gap: 16px;
+    }
+}
+
+
+/* =========================================================
+   中等宽度
+   ========================================================= */
+
+@media screen and (max-width: 1100px) {
+
+    .product-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .selector-row {
+        flex-wrap: wrap;
+    }
+
+    .selector-button {
+        flex:
+            1 1
+            calc(50% - 8px);
+    }
+}
+
+
+/* =========================================================
+   小屏幕
+   ========================================================= */
+
+@media screen and (max-width: 700px) {
+
+    .page-shell {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .top-header {
+        min-height: 65px;
+    }
+
+    .site-title {
+        padding-left: 18px;
+        font-size: 20px;
+    }
+
+    .top-menu {
+        padding-right: 15px;
+        gap: 12px;
+    }
+
+    .top-menu > a,
+    .top-menu >
+    .user-menu-wrapper >
+    .user-menu-trigger {
+        font-size: 13px;
+    }
+
+    .page-body {
+        display: block;
+    }
+
+    .side-nav {
+        box-sizing: border-box;
+
+        width: 100%;
+
+        display: flex;
+
+        overflow-x: auto;
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .side-item {
+        width: auto;
+        min-width: 125px;
+
+        margin-left: 8px;
+
+        padding: 0 16px;
+
+        text-align: center;
+    }
+
+    .shop-main {
+        padding: 18px;
+    }
+
+    .selector-box {
+        display: block;
+
+        padding: 10px;
+    }
+
+    .selector-title {
+        margin: 0 0 8px 0;
+        padding: 0;
+
+        border-right: none;
+
+        line-height: 28px;
+    }
+
+    .selector-row {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+    }
+
+    .selector-button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .filter-submit {
+        width: 100%;
+
+        grid-column: 1 / -1;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card {
+        min-height: 146px;
+    }
+
+    .product-image {
+        width: 133px;
+        height: 112px;
+
+        flex-basis: 133px;
+    }
+
+    .product-info {
+        height: 112px;
+    }
+
+    .product-description {
+        display: none;
+    }
+
+    .user-menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
