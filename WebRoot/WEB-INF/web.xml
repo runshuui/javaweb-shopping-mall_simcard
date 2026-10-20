@@ -1,0 +1,191 @@
+<!-- 登录 -->
+<servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.LoginServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+</servlet-mapping>
+
+<!-- 管理员商品管理 -->
+<servlet>
+    <servlet-name>AdminProductServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.AdminProductServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AdminProductServlet</servlet-name>
+    <url-pattern>/admin/product</url-pattern>
+</servlet-mapping>
+
+<!-- 商城商品列表 -->
+<servlet>
+    <servlet-name>StoreProductServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.StoreProductServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>StoreProductServlet</servlet-name>
+    <url-pattern>/store</url-pattern>
+</servlet-mapping>
+
+<!-- 商品详情 -->
+<servlet>
+    <servlet-name>ProductDetailServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.ProductDetailServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>ProductDetailServlet</servlet-name>
+    <url-pattern>/product</url-pattern>
+</servlet-mapping>
+
+<!-- 购物车 -->
+<servlet>
+    <servlet-name>CartServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.CartServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>CartServlet</servlet-name>
+    <url-pattern>/cart</url-pattern>
+</servlet-mapping>
+
+<!-- 收货地址 -->
+<servlet>
+    <servlet-name>UserAddressServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.UserAddressServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserAddressServlet</servlet-name>
+    <url-pattern>/address</url-pattern>
+</servlet-mapping>
+
+<!-- 结算 -->
+<servlet>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.CheckoutServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>CheckoutServlet</servlet-name>
+    <url-pattern>/checkout</url-pattern>
+</servlet-mapping>
+
+<!-- 支付完成 / 创建订单 -->
+<servlet>
+    <servlet-name>OrderPaymentServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.OrderPaymentServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrderPaymentServlet</servlet-name>
+    <url-pattern>/order/pay</url-pattern>
+</servlet-mapping>
+
+<!-- 我的订单 -->
+<servlet>
+    <servlet-name>UserOrderServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.UserOrderServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserOrderServlet</servlet-name>
+    <url-pattern>/orders</url-pattern>
+</servlet-mapping>
+
+<!-- 用户订单详情 -->
+<servlet>
+    <servlet-name>OrderDetailServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.OrderDetailServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>OrderDetailServlet</servlet-name>
+    <url-pattern>/order/detail</url-pattern>
+</servlet-mapping>
+
+<!-- 管理员订单与物流 -->
+<servlet>
+    <servlet-name>AdminOrderServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.AdminOrderServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AdminOrderServlet</servlet-name>
+    <url-pattern>/admin/orders</url-pattern>
+</servlet-mapping>
+
+<!-- 用户中心 -->
+<servlet>
+    <servlet-name>UserCenterServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.UserCenterServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserCenterServlet</servlet-name>
+    <url-pattern>/user-center</url-pattern>
+</servlet-mapping>
+
+<!-- 退出登录 -->
+<servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.LogoutServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+</servlet-mapping>
+
+<!-- 我的评价 -->
+<servlet>
+    <servlet-name>UserReviewServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.UserReviewServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserReviewServlet</servlet-name>
+    <url-pattern>/reviews</url-pattern>
+</servlet-mapping>
+
+<!-- 管理员评价管理 -->
+<servlet>
+    <servlet-name>AdminReviewServlet</servlet-name>
+    <servlet-class>
+        com.chouwansim.servlet.AdminReviewServlet
+    </servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AdminReviewServlet</servlet-name>
+    <url-pattern>/admin/reviews</url-pattern>
+</servlet-mapping>
+
+<!-- 管理员权限过滤器 -->
+<filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>
+        com.chouwansim.filter.AdminFilter
+    </filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+</filter-mapping>
