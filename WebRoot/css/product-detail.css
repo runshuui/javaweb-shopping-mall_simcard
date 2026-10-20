@@ -1,0 +1,936 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    background-color: #ffffff;
+    color: #243447;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* =========================================================
+   页面整体
+   ========================================================= */
+
+.detail-shell {
+    width: 94%;
+    max-width: 1420px;
+
+    margin: 28px auto 0 auto;
+
+    background-color: #ffffff;
+}
+
+
+/* =========================================================
+   顶部导航
+   ========================================================= */
+
+.detail-header {
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+
+    background-color: #b7d7e8;
+}
+
+.detail-logo {
+    padding-left: 36px;
+
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.detail-logo a {
+    color: #243447;
+}
+
+.detail-top-menu {
+    margin-left: auto;
+    padding-right: 8%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+}
+
+.detail-top-menu a {
+    margin: 0;
+
+    font-size: 17px;
+    color: #243447;
+}
+
+.detail-top-menu a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   主体
+   ========================================================= */
+
+.detail-main {
+    padding: 24px 30px 30px 30px;
+
+    background-color: #f6f8fb;
+}
+
+
+/* =========================================================
+   商品顶部概览
+   ========================================================= */
+
+.overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 14px;
+}
+
+.overview-card,
+.rating-card {
+    box-sizing: border-box;
+
+    min-height: 220px;
+
+    padding: 20px;
+
+    border: 1px solid #d5dde3;
+    border-radius: 0;
+
+    background-color: #ffffff;
+}
+
+.overview-card {
+    display: flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   商品主图
+   190 : 160
+   ========================================================= */
+
+.overview-image {
+    width: 190px;
+    height: 160px;
+
+    flex: 0 0 190px;
+
+    overflow: hidden;
+
+    background-color: #eef3f8;
+}
+
+.overview-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #99a5af;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   商品顶部文字
+   ========================================================= */
+
+.overview-info {
+    min-width: 0;
+
+    padding-left: 24px;
+}
+
+.overview-info h1 {
+    margin: 0 0 10px 0;
+
+    font-size: 24px;
+    line-height: 1.4;
+
+    color: #243447;
+}
+
+.overview-meta {
+    margin-bottom: 8px;
+
+    color: #68768a;
+
+    font-size: 14px;
+}
+
+.overview-description {
+    margin-bottom: 12px;
+
+    color: #68768a;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.overview-operator {
+    color: #7a8794;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   评分区域
+   ========================================================= */
+
+.rating-card {
+    position: relative;
+
+    text-align: center;
+}
+
+.rating-title {
+    margin: 0 0 4px 0;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: #243447;
+}
+
+.rating-score {
+    margin-top: 0;
+
+    text-align: center;
+}
+
+.rating-score-number {
+    font-size: 30px;
+    line-height: 38px;
+
+    font-weight: bold;
+
+    color: #243447;
+}
+
+.rating-score-note {
+    margin-top: 2px;
+
+    color: #87939c;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   雷达图
+   ========================================================= */
+
+.review-radar {
+    display: block;
+
+    width: 270px;
+    height: 225px;
+
+    max-width: 100%;
+
+    margin: 2px auto 0 auto;
+}
+
+
+/* =========================================================
+   暂无评分
+   ========================================================= */
+
+.radar-placeholder {
+    position: relative;
+
+    width: 150px;
+    height: 110px;
+
+    margin: 40px auto 4px auto;
+}
+
+.radar-text {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: 42px;
+
+    z-index: 2;
+
+    font-size: 13px;
+
+    color: #68768a;
+}
+
+.rating-note {
+    margin-top: 0;
+
+    color: #8a96a2;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   eUICC
+   ========================================================= */
+
+.euicc-summary {
+    margin-top: 60px;
+
+    color: #68768a;
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   通用详情区块
+   ========================================================= */
+
+.detail-section {
+    margin-bottom: 8px;
+
+    border: 1px solid #d9dee3;
+    border-radius: 0;
+
+    background-color: #ffffff;
+}
+
+.section-title {
+    padding: 11px 18px;
+
+    border-bottom: 1px solid #e7ebee;
+
+    font-size: 15px;
+    line-height: 24px;
+
+    font-weight: bold;
+
+    color: #243447;
+}
+
+.section-content {
+    padding: 17px 20px;
+}
+
+
+/* =========================================================
+   基本资料
+   ========================================================= */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    column-gap: 36px;
+    row-gap: 12px;
+}
+
+.info-item {
+    display: flex;
+
+    min-width: 0;
+
+    padding-bottom: 7px;
+
+    border-bottom: 1px solid #edf0f2;
+}
+
+.info-label {
+    width: 135px;
+
+    flex-shrink: 0;
+
+    color: #7a8794;
+
+    font-size: 13px;
+}
+
+.info-value {
+    min-width: 0;
+
+    color: #34475a;
+
+    font-size: 13px;
+
+    overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   产品介绍 / 保号说明 / 申请教程
+   ========================================================= */
+
+.text-content {
+    padding-top: 14px;
+    padding-bottom: 14px;
+
+    white-space: pre-line;
+
+    line-height: 1.8;
+
+    color: #566574;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   用户评价区域
+   ========================================================= */
+
+.review-section-content {
+    padding: 12px 14px;
+}
+
+.empty-review {
+    padding: 20px 10px;
+
+    text-align: left;
+
+    color: #8c98a3;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   单条评价
+   ========================================================= */
+
+.review-item {
+    box-sizing: border-box;
+
+    width: 100%;
+
+    margin: 0 0 8px 0;
+    padding: 13px 15px;
+
+    border: 1px solid #e1e6ea;
+
+    background-color: #ffffff;
+
+    text-align: left;
+}
+
+.review-item:last-child {
+    margin-bottom: 0;
+}
+
+.review-item-header {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    text-align: left;
+}
+
+.review-user {
+    color: #243447;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    text-align: left;
+}
+
+.review-score {
+    margin-left: auto;
+
+    color: #397b9d;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   用户自己的六维评分
+   ========================================================= */
+
+.review-dimensions {
+    width: 100%;
+
+    margin-top: 6px;
+
+    color: #84919a;
+
+    font-size: 11px;
+    line-height: 1.6;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   用户文字评论
+
+   这里使用 pre-line，而不是 pre-wrap。
+
+   pre-wrap 会把 JSP 源代码中的缩进空格也显示出来，
+   导致评论正文被推到右边。
+
+   pre-line 会保留用户输入的换行，
+   但折叠多余空格。
+   ========================================================= */
+
+.review-content {
+    display: block;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    margin: 8px 0 0 0;
+    padding: 0;
+
+    color: #52616c;
+
+    font-size: 13px;
+    line-height: 1.7;
+
+    text-align: left;
+
+    white-space: pre-line;
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   发表评价
+   ========================================================= */
+
+.review-action {
+    margin-top: 10px;
+
+    text-align: right;
+}
+
+.review-action a {
+    color: #397b9d;
+
+    font-size: 12px;
+}
+
+.review-action a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   页面底部留白
+   ========================================================= */
+
+.bottom-space {
+    height: 82px;
+}
+
+
+/* =========================================================
+   固定购买栏
+   ========================================================= */
+
+.bottom-action-bar {
+    position: fixed;
+
+    left: 50%;
+    bottom: 0;
+
+    transform:
+        translateX(-50%);
+
+    box-sizing: border-box;
+
+    width: 94%;
+    max-width: 1420px;
+
+    min-height: 68px;
+
+    padding: 10px 30px;
+
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #bdd6e3;
+    border-bottom: none;
+
+    background-color: #ffffff;
+
+    box-shadow:
+        0 -2px 8px
+        rgba(
+            36,
+            52,
+            71,
+            0.07
+        );
+
+    z-index: 50;
+}
+
+
+/* =========================================================
+   底部商品名称 / 价格
+   ========================================================= */
+
+.bottom-product {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+}
+
+.bottom-product strong {
+    max-width: 400px;
+
+    margin-right: 20px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 14px;
+}
+
+.bottom-price {
+    flex-shrink: 0;
+
+    color: #c95882;
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   底部按钮区域
+   ========================================================= */
+
+.bottom-buttons {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* =========================================================
+   三个按钮统一尺寸
+   ========================================================= */
+
+.detail-button {
+    box-sizing: border-box;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 128px;
+    min-width: 128px;
+    height: 44px;
+
+    margin: 0;
+    padding: 0 16px;
+
+    border-radius: 0;
+
+    text-align: center;
+
+    font-family:
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+    font-weight: normal;
+
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   自行申请
+   ========================================================= */
+
+.self-button {
+    border: 1px solid #9fc7dc;
+
+    background-color: #ffffff;
+
+    color: #42677a;
+}
+
+.self-button:hover {
+    background-color: #eef7fb;
+}
+
+
+/* =========================================================
+   加入购物车
+
+   不再设置单独尺寸。
+   只通过颜色区别主要操作。
+   ========================================================= */
+
+.cart-button {
+    border: 1px solid #a98fc1;
+
+    background-color: #d9c2e9;
+
+    color: #243447;
+
+    font-weight: bold;
+}
+
+.cart-button:hover {
+    background-color: #cfb3e3;
+}
+
+
+/* =========================================================
+   立即购买
+   ========================================================= */
+
+.buy-button {
+    border: 1px solid #d895b2;
+
+    background-color: #f4c2d7;
+
+    color: #243447;
+}
+
+.buy-button:hover {
+    background-color: #efb1cc;
+}
+
+
+/* =========================================================
+   禁用按钮
+   ========================================================= */
+
+.disabled-button {
+    border: 1px solid #d9d9d9;
+
+    background-color: #eeeeee;
+
+    color: #aaaaaa;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   购物车表单
+   ========================================================= */
+
+.cart-form {
+    margin: 0;
+    padding: 0;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+
+/* =========================================================
+   中等屏幕
+   ========================================================= */
+
+@media screen and (max-width: 950px) {
+
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bottom-action-bar {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .bottom-product strong {
+        max-width: 230px;
+    }
+
+    .detail-button {
+        width: 110px;
+        min-width: 110px;
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+
+/* =========================================================
+   手机
+   ========================================================= */
+
+@media screen and (max-width: 650px) {
+
+    .detail-shell {
+        width: 100%;
+
+        margin-top: 0;
+    }
+
+    .detail-header {
+        height: auto;
+        min-height: 65px;
+
+        padding: 8px 0;
+    }
+
+    .detail-logo {
+        padding-left: 18px;
+
+        font-size: 20px;
+    }
+
+    .detail-top-menu {
+        padding-right: 15px;
+
+        gap: 12px;
+    }
+
+    .detail-top-menu a {
+        font-size: 13px;
+    }
+
+    .detail-main {
+        padding: 14px;
+    }
+
+    .overview-card {
+        display: block;
+    }
+
+    .overview-image {
+        width: 100%;
+        height: auto;
+
+        aspect-ratio: 19 / 16;
+    }
+
+    .overview-info {
+        padding: 18px 0 0 0;
+    }
+
+    .review-radar {
+        width: 250px;
+        height: auto;
+    }
+
+    .info-item {
+        display: block;
+    }
+
+    .info-label {
+        display: block;
+
+        width: auto;
+
+        margin-bottom: 4px;
+    }
+
+    .review-section-content {
+        padding: 10px;
+    }
+
+    .review-item {
+        padding: 11px 12px;
+    }
+
+    .bottom-space {
+        height: 138px;
+    }
+
+    .bottom-action-bar {
+        width: 100%;
+
+        display: block;
+
+        padding: 9px 12px;
+    }
+
+    .bottom-product {
+        margin-bottom: 8px;
+    }
+
+    .bottom-product strong {
+        max-width: 70%;
+    }
+
+    .bottom-buttons {
+        width: 100%;
+
+        margin-left: 0;
+
+        display: flex;
+    }
+
+    .cart-form {
+        flex: 1;
+    }
+
+    .detail-button {
+        flex: 1;
+
+        width: auto;
+        min-width: 0;
+        height: 42px;
+
+        padding: 0 6px;
+    }
+
+    .cart-form .detail-button {
+        width: 100%;
+    }
+}
